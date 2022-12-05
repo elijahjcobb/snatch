@@ -30,9 +30,19 @@
   display: flex;
 }
 
-.child {
+.childContainer {
   flex-grow: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.child {
+  flex-grow: 1;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
 }
 
 .nav {
@@ -78,4 +88,27 @@
   display: flex;
   align-items: center;
   gap: var(--sp);
+}
+
+.spinnerContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  to {
+    transform: rotate(360deg) translate3d(0, 0, 0);
+  }
 }

@@ -81,3 +81,13 @@ h4,
 h5 {
   font-family: var(--font-grotesk);
 }
+
+section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp);
+}
+
+section > p {
+  color: var(--acc-5);
+}

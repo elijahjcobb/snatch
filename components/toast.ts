@@ -34,7 +34,7 @@ function iconForStatus(status: ToastStatus): string {
 }
 
 export function toast({
-  message = "Unknown error.",
+  message,
   status = "success",
   duration = 4000,
   promise,
@@ -48,12 +48,12 @@ export function toast({
 }) {
   if (promise) {
     hotToast.promise(promise, {
-      loading: message,
+      loading: message ?? "Loading...",
       success: "Success!",
       error: "Error!",
     });
   } else {
-    hotToast(message, {
+    hotToast(message ?? "Unknown State :/", {
       icon: iconForStatus(status),
       style: {
         background: `var(--${backgroundForStatus(status)})`,

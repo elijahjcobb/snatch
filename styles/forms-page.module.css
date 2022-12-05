@@ -12,7 +12,6 @@
   max-width: 720px;
   gap: var(--sp-2);
   width: 100%;
-  opacity: 0;
   transition: var(--trans-slow);
 }
 

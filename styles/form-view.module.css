@@ -1,0 +1,10 @@
+.url {
+  background: var(--acc-2);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 4px;
+  outline: none;
+  border: none;
+  cursor: copy;
+}

@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import clsx from "clsx";
 import { Button } from "../button";
 import { deleteCookie } from "cookies-next";
+import { ImSpinner } from "react-icons/im";
 
 function DashboardLink({
 	href,
@@ -35,11 +36,13 @@ function DashboardLink({
 export function DashboardPage({
 	title,
 	children,
-	className
+	className,
+	useDefaultMaxWidth = false
 }: {
 	title?: string;
 	children: ReactNode;
 	className?: string;
+	useDefaultMaxWidth?: boolean;
 }) {
 
 	const router = useRouter();
@@ -96,9 +99,20 @@ export function DashboardPage({
 					/>
 				</div>
 			</header>
-			<div className={clsx(styles.child, className)}>
-				{children}
+			<div className={clsx(styles.childContainer)}>
+				<div style={{
+					maxWidth: useDefaultMaxWidth ? 720 : 'unset',
+					padding: useDefaultMaxWidth ? 'var(--sp-6) 0' : 0,
+				}} className={clsx(styles.child, className)}>
+					{children}
+				</div>
 			</div>
 		</div>
 	</BasePage>
+}
+
+export function DashboardPageLoader() {
+	return <div className={styles.spinnerContainer}>
+		<ImSpinner className={styles.spinner} />
+	</div>
 }

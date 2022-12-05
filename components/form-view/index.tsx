@@ -4,30 +4,42 @@ import { Field } from "../field";
 import styles from "./index.module.css";
 import { IoPencil, IoLink, IoEarth } from "react-icons/io5";
 import { Button } from "../button";
-import { IoAdd, IoSave } from "react-icons/io5";
+import { IoAdd, IoTrash, IoSave } from "react-icons/io5";
 import { fetcher } from "../../helpers/front/fetch";
 import { toast } from "../toast";
 import { APIError } from "../../helpers/api-error";
 import { useRouter } from "next/router";
 
-export function FormView({ form }: { form?: APIResponseForm }) {
+export function FormView({
+	form,
+	title,
+	onFormChange
+}: {
+	form?: APIResponseForm,
+	title?: string,
+	onFormChange?: (form: APIResponseForm) => void;
+}) {
 
 	const router = useRouter();
 	const [name, setName] = useState(form?.name ?? "");
 	const [destination, setDestination] = useState(form?.destination ?? "");
 	const [domains, setDomains] = useState(form?.domains.join(",") ?? "");
 	const [loading, setLoading] = useState(false);
-	const formUrl = useMemo(() => `https://snatch.fyi/api/response/${form?.id}`, [form]);
 
-	const handleCopy = useCallback(() => {
-		navigator.clipboard.writeText(formUrl)
-			.then(() => toast({ message: "Copied to clipboard" }))
-			.catch(() => toast({ message: "Failed to copy to clipboard", status: "error" }))
-	}, [formUrl]);
+	const handleDelete = useCallback(() => {
+		if (!form?.id) return;
+		fetcher<APIResponseForm>({
+			path: `/form/${form.id}`,
+			method: 'delete',
+			message: 'Deleting form...'
+		}).then(() => {
+			router.push("/dashboard/forms");
+		}).catch(console.error)
+	}, [form, router]);
 
 	const handleSubmit = useCallback(() => {
 		setLoading(true);
-		fetcher({
+		fetcher<APIResponseForm>({
 			path: `/form/${form ? form.id : ""}`,
 			method: form ? 'put' : "post",
 			body: {
@@ -36,52 +48,65 @@ export function FormView({ form }: { form?: APIResponseForm }) {
 				domains: domains.split(","),
 				notifyAdmin: true,
 				notifyResponder: false,
-			}
-		}).then(() => {
-			router.push("/dashboard/forms");
-		}).catch((err) => {
-			let message = "Could not save form.";
-			if (err instanceof APIError) message = err.message
-			toast({ status: "error", message })
-		}).finally(() => setLoading(false))
-	}, [form, name, destination, domains, router]);
+			},
+			message: 'Saving form...'
+		}).then((res) => {
+			if (onFormChange) onFormChange(res);
+			else router.push("/dashboard/forms");
+		}).catch(console.error).finally(() => setLoading(false))
+	}, [form, name, destination, domains, onFormChange, router]);
 
 	return <div className={styles.page}>
-		<h2>{form ? "Update" : "Create"} Form</h2>
-		{form ? <div>
-			<p>Use the following URL for your form:</p>
-			<button onClick={handleCopy} className={styles.url}>{formUrl}</button>
-		</div> : null}
-		<Field
-			value={name}
-			showLabel
-			disabled={loading}
-			icon={IoPencil}
-			onChange={setName}
-			placeholder='A form hosted on snatch'
-			label="name" />
-		<Field
-			value={destination}
-			icon={IoLink}
-			showLabel
-			onChange={setDestination}
-			disabled={loading}
-			label='destination'
-			mono
-			placeholder="https://my-site.com/form/submitted" />
-		<Field
-			value={domains}
-			icon={IoEarth}
-			showLabel
-			disabled={loading}
-			onChange={setDomains}
-			mono
-			placeholder='my-site.com,my-other-site.com'
-			label="domains" />
-		<Button
-			disabled={loading}
-			icon={form ? IoSave : IoAdd}
-			onClick={handleSubmit}
-			value={form ? "Update" : "Create"} />
+		{title ? <h2>{title}</h2> : null}
+		<section>
+			<h3>Name</h3>
+			<p>The name of your form. Only you will see this name.</p>
+			<Field
+				value={name}
+				disabled={loading}
+				icon={IoPencil}
+				onChange={setName}
+				placeholder='A form hosted on snatch'
+				label="name" />
+		</section>
+		<section>
+			<h3>Destination</h3>
+			<p>Where should your users be redirected to once they fill out your form?</p>
+			<Field
+				value={destination}
+				icon={IoLink}
+				onChange={setDestination}
+				disabled={loading}
+				label='destination'
+				mono
+				placeholder="https://my-site.com/form/submitted" />
+		</section>
+		<section>
+			<h3>Domains</h3>
+			<p>Which domains can your forms be filled out on? <b>Note:</b> Leave empty to allow all domains.</p>
+			<Field
+				value={domains}
+				icon={IoEarth}
+				showLabel
+				disabled={loading}
+				onChange={setDomains}
+				mono
+				placeholder='my-site.com,my-other-site.com'
+				label="domains" />
+		</section>
+		<div className={styles.buttons}>
+			{form ? <Button
+				disabled={loading}
+				icon={IoTrash}
+				onClick={handleDelete}
+				secondary
+				value={"Delete"} /> : null}
+			<Button
+				disabled={loading}
+				className={styles.saveButton}
+				icon={form ? IoSave : IoAdd}
+				onClick={handleSubmit}
+				value={form ? "Save" : "Create"} />
+		</div>
 	</div>
 }

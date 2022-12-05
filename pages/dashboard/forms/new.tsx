@@ -3,7 +3,7 @@ import { FormView } from "../../../components/form-view";
 
 export default function Page() {
 
-	return <DashboardPage title='forms'>
-		<FormView />
+	return <DashboardPage useDefaultMaxWidth title='forms'>
+		<FormView title="Create Form" />
 	</DashboardPage>
 }
