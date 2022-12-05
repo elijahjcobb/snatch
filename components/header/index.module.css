@@ -1,0 +1,62 @@
+.header,
+.title,
+.nav,
+.buttons,
+.links {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-shrink: 0;
+}
+
+.header {
+  padding: 0 var(--sp-2);
+  height: var(--header);
+  border-bottom: solid 1px var(--acc-2);
+  box-sizing: 0 0 8px var(--acc-1);
+  position: sticky;
+  top: 0;
+  background: rgba(var(--bg-rgb), 0.95);
+  backdrop-filter: blur(16px);
+}
+
+.nav {
+  gap: var(--sp-4);
+  flex-grow: 1;
+}
+
+.links {
+  flex-grow: 1;
+  justify-content: center;
+  gap: var(--sp-6);
+}
+
+.title h1 {
+  font-family: var(--font-grotesk);
+}
+
+.buttons {
+  opacity: 0;
+  width: 210px;
+  justify-content: flex-end;
+  animation: fadeIn 250ms 250ms ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.link {
+  font-family: var(--font-grotesk);
+  transition: var(--trans);
+  font-size: 1.125rem;
+}
+
+.link:hover {
+  color: var(--pri);
+}

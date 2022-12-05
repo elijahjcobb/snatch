@@ -1,0 +1,10 @@
+.children {
+}
+
+.fullHeight {
+  min-height: calc(100vh - var(--header));
+}
+
+.fullHeightWithoutNav {
+  min-height: 100vh;
+}

@@ -1,0 +1,64 @@
+.form {
+  background: var(--acc-1);
+  border: solid 1px var(--acc-2);
+  padding: var(--sp-2);
+  border-radius: var(--sp);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  opacity: 0.65;
+}
+
+.form,
+.icon {
+  transition: var(--trans);
+}
+
+.form:hover {
+  border-color: var(--sec);
+  opacity: 1;
+}
+
+.icon {
+  color: var(--acc-2);
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.form:hover .icon {
+  color: var(--sec);
+}
+
+.form,
+.left {
+  gap: var(--sp-2);
+}
+
+.left {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.name {
+  font-size: 1.125rem;
+}
+
+.url {
+  background: var(--acc-2);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 4px;
+  outline: none;
+  border: none;
+  cursor: copy;
+}
+
+.message {
+  font-size: 0.85rem;
+  opacity: 0.75;
+  margin-bottom: 2px;
+}

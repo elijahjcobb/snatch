@@ -1,0 +1,76 @@
+.container {
+  display: flex;
+  align-items: center;
+  border-radius: var(--sp);
+  cursor: pointer;
+  background: var(--acc-1);
+  overflow: hidden;
+  border: solid 1px var(--acc-2);
+}
+
+.container,
+.icon,
+.field {
+  transition: var(--trans);
+}
+
+.container:focus-within {
+  --col: var(--acc-6);
+  border-color: var(--col);
+}
+
+.field:disabled {
+  background: var(--acc-1);
+}
+
+.field:disabled:hover {
+  cursor: not-allowed;
+}
+
+.container:focus-within .iconContainer {
+  border-right-color: var(--col);
+}
+
+.container:focus-within .icon,
+.container:focus-within .label {
+  color: var(--col);
+}
+
+.iconContainer {
+  display: flex;
+  padding: var(--sp);
+  gap: var(--sp);
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border-right: solid 1px var(--acc-2);
+}
+
+.label {
+  color: var(--acc-3);
+  font-family: var(--font);
+  font-size: 0.85rem;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  color: var(--acc-3);
+}
+
+.field {
+  height: 100%;
+  flex-grow: 1;
+  background: none;
+  outline: none;
+  border: none;
+  font-size: 1.0625rem;
+  color: inherit;
+  font-family: var(--font);
+  background: var(--bg);
+  padding: 8px;
+}
+
+.field::placeholder {
+  color: var(--acc-4);
+}

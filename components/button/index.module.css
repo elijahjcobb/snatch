@@ -1,0 +1,55 @@
+.button {
+  --col: white;
+  outline: none;
+  border: solid 1px var(--col);
+  background: var(--col);
+  font-size: 1.125rem;
+  padding: var(--sp) var(--sp-2);
+  border-radius: var(--sp);
+  cursor: pointer;
+  color: var(--bg);
+  transition: var(--trans);
+  font-family: var(--font-grotesk);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp);
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+.button:hover,
+.button:focus-visible {
+  background: none;
+  color: var(--col);
+  transform: scale(1.00625) translateY(-1px);
+}
+
+.primary {
+  --col: var(--pri);
+}
+
+.secondary {
+  background: var(--bg);
+  color: var(--acc-4);
+  border: solid 1px var(--acc-2);
+}
+
+.secondary:hover,
+.button:focus-visible {
+  color: var(--acc-6);
+  border: solid 1px var(--acc-5);
+}
+
+.button:disabled,
+.button:disabled:hover {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.button:disabled:hover {
+  transform: none;
+}
