@@ -4,24 +4,6 @@
   gap: var(--sp-6);
 }
 
-.url {
-  border: solid 1px var(--acc-2);
-  background: var(--acc-1);
-  outline: none;
-  padding: var(--sp2);
-  border-radius: var(--sp2);
-  margin-top: var(--sp2);
-  cursor: copy;
-  color: var(--sec);
-  transition: var(--trans);
-  font-size: 0.75rem;
-  font-family: var(--font-mono);
-}
-
-.url:hover {
-  color: var(--fg);
-}
-
 .buttons {
   display: flex;
   gap: var(--sp-2);

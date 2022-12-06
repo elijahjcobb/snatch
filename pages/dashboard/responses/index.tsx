@@ -3,8 +3,6 @@ import { FormRow } from "../../../components/form-row";
 import { useFetch } from "../../../helpers/front/fetch";
 import type { APIResponseForms } from "../../api/form/all";
 import styles from "../../../styles/forms-page.module.css";
-import { Button } from "../../../components/button";
-import { IoAdd } from "react-icons/io5";
 
 export default function Page() {
 
@@ -13,20 +11,15 @@ export default function Page() {
 		method: "get"
 	});
 
-	return <DashboardPage useMaxWidth title='forms' className={styles.page}>
+	return <DashboardPage useMaxWidth title='responses' className={styles.page}>
 		{forms ? <>
 			<section>
-				<h2>Forms</h2>
-				<p>Edit or create your forms.</p>
+				<h2>Responses</h2>
+				<p>Select a form to view your responses.</p>
 			</section>
 			<div className={styles.forms}>
-				{forms.map(form => <FormRow href={`/dashboard/forms/${form.id}`} form={form} key={form.id} />)}
+				{forms.map(form => <FormRow href={`/dashboard/responses/${form.id}`} form={form} key={form.id} />)}
 			</div>
-			<Button
-				href="/dashboard/forms/new"
-				icon={IoAdd}
-				className={styles.button}
-			/>
 		</> : <DashboardPageLoader />}
 	</DashboardPage>
 }

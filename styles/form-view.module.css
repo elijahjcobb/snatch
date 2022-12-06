@@ -8,3 +8,11 @@
   border: none;
   cursor: copy;
 }
+
+.top {
+  display: flex;
+  gap: var(--sp-2);
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}

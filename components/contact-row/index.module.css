@@ -1,0 +1,76 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: var(--sp-2);
+  border-radius: var(--sp-2);
+  gap: var(--sp-4);
+  background: var(--acc-1);
+  border: solid 1px var(--acc-2);
+  width: 600px;
+  text-align: left;
+  font-size: 1rem;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  flex-grow: 1;
+}
+
+.profile {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(var(--blue), var(--blue));
+  border-radius: 50%;
+}
+
+.profile span {
+  font-size: 36px;
+  font-family: var(--font-mono);
+  color: var(--bg);
+}
+
+.row span {
+  display: block;
+}
+
+.name {
+  display: flex;
+  gap: 0.5ch;
+}
+
+.name span {
+  font-family: var(--font-grotesk);
+  font-size: 1.5rem;
+  color: var(--fg);
+}
+
+.right,
+.middle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp);
+  color: var(--acc-7);
+}
+
+.right {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.clickable {
+  cursor: pointer;
+  transition: var(--trans);
+}
+
+.clickable:hover {
+  border-color: var(--fg);
+}

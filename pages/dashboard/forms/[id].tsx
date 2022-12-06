@@ -5,6 +5,9 @@ import { FormView } from "../../../components/form-view";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "../../../components/toast";
 import styles from "../../../styles/form-view.module.css";
+import { uniqueFormURL } from "../../../helpers/front/form-url";
+import { Copier } from "../../../components/copier";
+import { Button } from "../../../components/button";
 
 
 export default function Page() {
@@ -20,28 +23,26 @@ export default function Page() {
 	});
 
 	const [form, setForm] = useState<APIResponseForm | undefined>(undefined);
-
-	const formUrl = useMemo(() => `https://snatch.fyi/api/response/${form?.id}`, [form]);
-
-	const handleCopy = useCallback(() => {
-		navigator.clipboard.writeText(formUrl)
-			.then(() => toast({ message: "Copied to clipboard" }))
-			.catch(() => toast({ message: "Failed to copy to clipboard", status: "error" }))
-	}, [formUrl]);
+	const formUrl = useMemo(() => uniqueFormURL(form?.id ?? ''), [form]);
 
 	useEffect(() => {
 		setForm(fetchForm);
 	}, [fetchForm]);
 
-	return <DashboardPage useDefaultMaxWidth title='forms'>
+	return <DashboardPage useMaxWidth title='forms'>
 		{form ? <>
-			<h1>{form.name}</h1>
+			<div className={styles.top}>
+				<h1>{form.name}</h1>
+				<Button
+					value="View Responses"
+					href={`/dashboard/responses/${form.id}`}
+				/>
+			</div>
 			<section>
-				<h3>Form URL</h3>
+				<h2>Form URL</h2>
 				<p>Use the following URL as the action for your forms.</p>
-				<button onClick={handleCopy} className={styles.url}>{formUrl}</button>
+				<Copier value={formUrl} />
 			</section>
-			<h2>Stats</h2>
 			<FormView onFormChange={setForm} form={form} title='Update Form' />
 		</> : <DashboardPageLoader />}
 	</DashboardPage>

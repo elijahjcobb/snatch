@@ -9,6 +9,7 @@ import { fetcher } from "../../helpers/front/fetch";
 import { toast } from "../toast";
 import { APIError } from "../../helpers/api-error";
 import { useRouter } from "next/router";
+import { HOST } from "../../helpers/constants";
 
 export function FormView({
 	form,
@@ -79,11 +80,11 @@ export function FormView({
 				disabled={loading}
 				label='destination'
 				mono
-				placeholder="https://my-site.com/form/submitted" />
+				placeholder={`${HOST}/submission/success`} />
 		</section>
 		<section>
 			<h3>Domains</h3>
-			<p>Which domains can your forms be filled out on? <b>Note:</b> Leave empty to allow all domains.</p>
+			<p>Which domains can your forms be filled out on? Provide a comma separated list. <b>Note:</b> Leave empty to allow all domains.</p>
 			<Field
 				value={domains}
 				icon={IoEarth}

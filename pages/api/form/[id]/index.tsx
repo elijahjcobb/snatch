@@ -1,10 +1,10 @@
 import { T } from "@elijahjcobb/typr";
-import { createEndpoint } from "../../../helpers/api/create-endpoint";
-import { verifyUser } from "../../../helpers/api/token";
-import { verifyBody } from "../../../helpers/api/type-check";
-import { supabase } from "../../../db";
-import { APIError } from "../../../helpers/api-error";
-import { APIResponseForm, convertToForm } from "../../../helpers/api/coding";
+import { createEndpoint } from "../../../../helpers/api/create-endpoint";
+import { verifyUser } from "../../../../helpers/api/token";
+import { verifyBody } from "../../../../helpers/api/type-check";
+import { supabase } from "../../../../db";
+import { APIError } from "../../../../helpers/api-error";
+import { APIResponseForm, convertToForm } from "../../../../helpers/api/coding";
 
 export default createEndpoint<APIResponseForm>({
 	DELETE: async ({ req, res }) => {
@@ -75,13 +75,18 @@ export default createEndpoint<APIResponseForm>({
 		const form = data[0];
 		if (form.user_id !== user.id) throw new APIError(404, "Form does not exist.");
 
+		let name = body.name ?? '';
+		if (name.length === 0) name = form.name;
+
 		const newFormData = {
-			name: body.name ?? form.name,
-			notify_admin: body.notifyAdmin ?? form.notify_admin,
-			notify_responder: body.notifyResponder ?? form.notify_responder,
-			domains: body.domains ?? form.domains,
-			destination: body.destination ?? form.destination,
-		}
+			name,
+			notify_admin: body.notifyAdmin ?? false,
+			notify_responder: body.notifyResponder ?? false,
+			domains: body.domains ?? [],
+			destination: body.destination ?? null,
+		};
+
+		console.log({ newFormData, body })
 
 		const { error: updateError } = await supabase
 			.from("form")

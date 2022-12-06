@@ -1,0 +1,39 @@
+.tableContainer {
+  overflow-y: auto;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  min-height: 100%;
+  background: var(--bg);
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: var(--sp) var(--sp-2);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+}
+
+.table th {
+  position: sticky;
+  top: 0px;
+  background: var(--acc-1);
+  border: solid 1px var(--acc-2);
+  border-top: none;
+}
+
+.table td {
+  border: 1px solid var(--acc-2);
+  font-size: 0.85rem;
+}
+
+.table tr:nth-child(odd) {
+  background: var(--acc-1);
+}
+
+.disabled {
+  color: var(--acc-4);
+}

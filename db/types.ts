@@ -16,6 +16,10 @@ export interface Database {
           form_id: string
           fields: Json
           email: string | null
+          first_name: string | null
+          last_name: string | null
+          phone: string | null
+          message: string | null
         }
         Insert: {
           id?: string
@@ -23,6 +27,10 @@ export interface Database {
           form_id: string
           fields: Json
           email?: string | null
+          first_name?: string | null
+          last_name?: string | null
+          phone?: string | null
+          message?: string | null
         }
         Update: {
           id?: string
@@ -30,6 +38,10 @@ export interface Database {
           form_id?: string
           fields?: Json
           email?: string | null
+          first_name?: string | null
+          last_name?: string | null
+          phone?: string | null
+          message?: string | null
         }
       }
       form: {
@@ -92,7 +104,18 @@ export interface Database {
       }
     }
     Views: {
-      [_ in never]: never
+      contacts: {
+        Row: {
+          form_id: string | null
+          user_id: string | null
+          entry_id: string | null
+          first_name: string | null
+          last_name: string | null
+          phone: string | null
+          email: string | null
+          created_at: string | null
+        }
+      }
     }
     Functions: {
       install_available_extensions_and_test: {

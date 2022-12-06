@@ -30,14 +30,13 @@ export function Header() {
 	return <header className={styles.header}>
 		<Link href='/about' className={styles.title}>
 			<Icon size={32} />
-			<h1>snatch.fyi</h1>
+			<h1>snatch</h1>
 		</Link>
 		<nav className={styles.nav}>
 			<div className={styles.links}>
 				<HeaderLink href='/about' value='about' />
 				<HeaderLink href='/pricing' value='pricing' />
 				<HeaderLink href='/docs' value='docs' />
-				<HeaderLink newTab href='https://github.com/elijahjcobb/snatch' value='source' />
 			</div>
 			<div className={styles.buttons}>
 				{signedIn

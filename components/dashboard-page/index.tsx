@@ -37,12 +37,14 @@ export function DashboardPage({
 	title,
 	children,
 	className,
-	useDefaultMaxWidth = false
+	useMaxWidth = false,
+	maxWidth = 720
 }: {
 	title?: string;
 	children: ReactNode;
 	className?: string;
-	useDefaultMaxWidth?: boolean;
+	useMaxWidth?: boolean;
+	maxWidth?: number;
 }) {
 
 	const router = useRouter();
@@ -76,8 +78,8 @@ export function DashboardPage({
 						icon={IoReceipt}
 					/>
 					<DashboardLink
-						href='/dashboard/users'
-						name="Users"
+						href='/dashboard/contacts'
+						name="Contacts"
 						icon={IoPersonCircle}
 					/>
 					<DashboardLink
@@ -101,8 +103,8 @@ export function DashboardPage({
 			</header>
 			<div className={clsx(styles.childContainer)}>
 				<div style={{
-					maxWidth: useDefaultMaxWidth ? 720 : 'unset',
-					padding: useDefaultMaxWidth ? 'var(--sp-6) 0' : 0,
+					maxWidth: useMaxWidth ? maxWidth : 'unset',
+					padding: useMaxWidth ? 'var(--sp-6) 0' : 0,
 				}} className={clsx(styles.child, className)}>
 					{children}
 				</div>

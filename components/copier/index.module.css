@@ -1,0 +1,34 @@
+.url {
+  border: solid 1px var(--acc-2);
+  background: var(--bg);
+  outline: none;
+  padding: var(--sp);
+  border-radius: var(--sp2);
+  margin-top: var(--sp2);
+  overflow: hidden;
+  cursor: copy;
+  color: var(--sec);
+  transition: var(--trans);
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  gap: var(--sp);
+}
+
+.url span {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.url:hover {
+  color: var(--fg);
+  background: var(--acc-1);
+}
+
+.url:disabled {
+  cursor: not-allowed;
+  color: var(--sec);
+  border: solid 1px var(--acc-2);
+  background: var(--bg);
+}

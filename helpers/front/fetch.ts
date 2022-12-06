@@ -2,6 +2,7 @@ import { getCookie } from "cookies-next";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "../../components/toast";
 import { APIError } from "../api-error";
+import { HOST } from "../constants";
 
 export interface FetcherConfig {
   path: string;
@@ -21,7 +22,7 @@ export function fetcher<T extends object>({
   const promise = new Promise<T>((resolve, reject) => {
     (async (): Promise<T> => {
       try {
-        const url = `http://localhost:3000/api${path}`;
+        const url = `${HOST}/api${path}`;
         const res = await fetch(url, {
           method,
           body: JSON.stringify(body),
