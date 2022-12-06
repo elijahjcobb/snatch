@@ -1,5 +1,5 @@
 import { hasCookie } from "cookies-next";
 
 export function isSignedIn(): boolean {
-  return hasCookie("token");
+  return hasCookie("user");
 }

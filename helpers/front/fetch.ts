@@ -2,6 +2,7 @@ import { getCookie } from "cookies-next";
 import { useState, useEffect, useRef } from "react";
 import { toast } from "../../components/toast";
 import { APIError } from "../api-error";
+import type { TokenType } from "../api/token";
 import { HOST } from "../constants";
 
 export interface FetcherConfig {
@@ -10,6 +11,7 @@ export interface FetcherConfig {
   body?: object;
   showToast?: boolean;
   message?: string;
+  scope?: TokenType;
 }
 
 export function fetcher<T extends object>({
@@ -18,6 +20,7 @@ export function fetcher<T extends object>({
   body,
   showToast = true,
   message,
+  scope = "project",
 }: FetcherConfig): Promise<T> {
   const promise = new Promise<T>((resolve, reject) => {
     (async (): Promise<T> => {
@@ -27,7 +30,7 @@ export function fetcher<T extends object>({
           method,
           body: JSON.stringify(body),
           headers: {
-            authorization: `Bearer ${getCookie("token")}`,
+            authorization: `Bearer ${getCookie(scope)}`,
           },
         });
         const resBody = await res.json();

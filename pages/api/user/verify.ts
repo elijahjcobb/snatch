@@ -1,13 +1,8 @@
 import { T } from "@elijahjcobb/typr";
-import { APIError } from "../../../helpers/api-error";
 import { createEndpoint } from "../../../helpers/api/create-endpoint";
-import {
-  sendUserPostVerifyEmail,
-  sendUserSignUpEmail,
-} from "../../../helpers/api/email";
-import { otpGenerate, otpVerify } from "../../../helpers/api/otp";
-import { createPassword } from "../../../helpers/api/password";
-import { tokenSign, verifyUser } from "../../../helpers/api/token";
+import { sendUserPostVerifyEmail } from "../../../helpers/api/email";
+import { otpVerify } from "../../../helpers/api/otp";
+import { verifyUser } from "../../../helpers/api/token";
 import { verifyBody } from "../../../helpers/api/type-check";
 import { supabase } from "../../../db";
 

@@ -2,8 +2,7 @@ import { DashboardPage, DashboardPageLoader } from "../../../components/dashboar
 import { useFetch } from "../../../helpers/front/fetch";
 import type { APIResponseForm } from "../../../helpers/api/coding";
 import { FormView } from "../../../components/form-view";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { toast } from "../../../components/toast";
+import { useEffect, useMemo, useState } from "react";
 import styles from "../../../styles/form-view.module.css";
 import { uniqueFormURL } from "../../../helpers/front/form-url";
 import { Copier } from "../../../components/copier";
@@ -43,7 +42,7 @@ export default function Page() {
 				<p>Use the following URL as the action for your forms.</p>
 				<Copier value={formUrl} />
 			</section>
-			<FormView onFormChange={setForm} form={form} title='Update Form' />
+			<FormView onFormChange={setForm} form={form} title='Edit Form' />
 		</> : <DashboardPageLoader />}
 	</DashboardPage>
 }

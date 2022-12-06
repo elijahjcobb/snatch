@@ -1,6 +1,5 @@
 import { createEndpoint } from "../../../helpers/api/create-endpoint";
 import { supabase } from "../../../db";
-import { APIError } from "../../../helpers/api-error";
 
 const FORM_SUBMISSION_ERROR_URL = "http://localhost:3000/submission/error";
 const FORM_SUBMISSION_SUCCESS_URL = "http://localhost:3000/submission/success";
@@ -16,6 +15,13 @@ export default createEndpoint({
     }
 
     const paramsIndex = url.indexOf("?");
+
+    if (paramsIndex === -1) {
+      console.error("No params in url.");
+      res.redirect(FORM_SUBMISSION_ERROR_URL);
+      return;
+    }
+
     const paramsString = url.slice(paramsIndex + 1);
     const params = new URLSearchParams(paramsString);
     const body = Object.fromEntries(params.entries()) as Record<

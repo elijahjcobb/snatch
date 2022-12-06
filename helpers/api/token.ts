@@ -6,11 +6,12 @@ import {
 } from "jsonwebtoken";
 import { NextApiRequest } from "next";
 import { supabase } from "../../db";
-import user from "../../pages/api/user";
 import { APIError } from "../api-error";
 
+export type TokenType = "user" | "project";
 export interface TokenData {
-  userId: string;
+  id: string;
+  type: TokenType;
 }
 
 export interface Token extends TokenData {
@@ -22,8 +23,8 @@ export const TOKEN_AGE_SEC = 60 * 60 * 24 * 30;
 const SECRET = process.env.TOKEN_SECRET as string;
 if (!SECRET) throw new Error("TOKEN_SECRET is undefined.");
 
-export function tokenSign(userId: string): Promise<string> {
-  const token: TokenData = { userId };
+export function tokenSign(id: string, type: TokenType): Promise<string> {
+  const token: TokenData = { id, type };
   return new Promise((res, rej) => {
     sign(token, SECRET, { expiresIn: TOKEN_AGE_SEC }, (err, token) => {
       if (err || !token) rej(err);
@@ -41,9 +42,15 @@ function tokenVerifyInternal(token: string): Promise<Token> {
   });
 }
 
-async function tokenVerifyString(token: string): Promise<Token> {
+async function tokenVerifyString(
+  token: string,
+  type: TokenType
+): Promise<Token> {
   try {
-    return await tokenVerifyInternal(token);
+    const verifiedToken = await tokenVerifyInternal(token);
+    if (verifiedToken.type !== type)
+      throw new APIError(401, "Token invalid type.");
+    return verifiedToken;
   } catch (e) {
     if (e instanceof TokenExpiredError) {
       throw new APIError(401, "Authentication expired.");
@@ -54,8 +61,12 @@ async function tokenVerifyString(token: string): Promise<Token> {
   }
 }
 
-export async function tokenVerifyRequest(req: NextApiRequest): Promise<Token> {
-  let token: string | undefined = req.cookies.token;
+export async function tokenVerifyRequestForType(
+  req: NextApiRequest,
+  type: TokenType
+): Promise<Token> {
+  let token: string | undefined = req.cookies[type];
+
   if (!token) {
     const authHeader = req.headers.authorization ?? "";
     const arr = authHeader.split(" ");
@@ -65,11 +76,11 @@ export async function tokenVerifyRequest(req: NextApiRequest): Promise<Token> {
   if (!token) {
     throw new APIError(
       401,
-      "No token present in cookies as 'token' or bearer token in authorization header."
+      `No ${type} token present in cookies as '${type}' or bearer token in authorization header.`
     );
   }
 
-  return tokenVerifyString(token);
+  return tokenVerifyString(token, type);
 }
 
 export async function verifyUser(
@@ -78,8 +89,8 @@ export async function verifyUser(
     allowUnverified?: boolean;
   }
 ) {
-  const { userId } = await tokenVerifyRequest(req);
-  const { data, error } = await supabase.from("user").select().eq("id", userId);
+  const { id } = await tokenVerifyRequestForType(req, "user");
+  const { data, error } = await supabase.from("user").select().eq("id", id);
   if (error || !data || data.length < 1) {
     console.error(error);
     throw new APIError(401, "Authentication user is invalid.");
@@ -89,4 +100,14 @@ export async function verifyUser(
   if (!user.verified)
     throw new APIError(401, "User has not verified their email address.");
   return user;
+}
+
+export async function verifyProject(req: NextApiRequest) {
+  const { id } = await tokenVerifyRequestForType(req, "project");
+  const { data, error } = await supabase.from("project").select().eq("id", id);
+  if (error || !data || data.length < 1) {
+    console.error(error);
+    throw new APIError(401, "Authentication project is invalid.");
+  }
+  return data[0];
 }

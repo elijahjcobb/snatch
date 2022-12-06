@@ -1,7 +1,5 @@
-import { T } from "@elijahjcobb/typr";
 import { createEndpoint } from "../../../../helpers/api/create-endpoint";
-import { verifyUser } from "../../../../helpers/api/token";
-import { verifyBody } from "../../../../helpers/api/type-check";
+import { verifyProject } from "../../../../helpers/api/token";
 import { supabase } from "../../../../db";
 import { APIError } from "../../../../helpers/api-error";
 import {
@@ -14,7 +12,7 @@ export default createEndpoint<APIResponseFormEntries>({
   GET: async ({ req, res }) => {
     const formId = req.query.id;
     if (typeof formId !== "string") throw new APIError(400, "Invalid form ID.");
-    const user = await verifyUser(req);
+    const project = await verifyProject(req);
 
     const { data, error } = await supabase
       .from("form")
@@ -24,7 +22,7 @@ export default createEndpoint<APIResponseFormEntries>({
     if (!data || data.length < 1 || error)
       throw new APIError(404, "Form does not exist.");
     const form = data[0];
-    if (form.user_id !== user.id)
+    if (form.project_id !== project.id)
       throw new APIError(404, "Form does not exist.");
 
     const { data: responses, error: responsesError } = await supabase

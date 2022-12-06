@@ -3,7 +3,7 @@ import { Json } from "../../db/types";
 export interface APIResponseForm {
   id: string;
   createdAt: string;
-  userId: string;
+  projectId: string;
   name: string;
   notifyAdmin: boolean;
   notifyResponder: boolean;
@@ -14,7 +14,7 @@ export interface APIResponseForm {
 export interface APIRawForm {
   id: string;
   created_at: string;
-  user_id: string;
+  project_id: string;
   name: string;
   notify_admin: boolean;
   notify_responder: boolean;
@@ -26,7 +26,7 @@ export function convertToForm(rawForm: APIRawForm): APIResponseForm {
   return {
     id: rawForm.id,
     createdAt: rawForm.created_at,
-    userId: rawForm.user_id,
+    projectId: rawForm.project_id,
     name: rawForm.name,
     notifyAdmin: rawForm.notify_admin,
     notifyResponder: rawForm.notify_responder,

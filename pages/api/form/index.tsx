@@ -1,6 +1,6 @@
 import { T } from "@elijahjcobb/typr";
 import { createEndpoint } from "../../../helpers/api/create-endpoint";
-import { verifyUser } from "../../../helpers/api/token";
+import { verifyProject } from "../../../helpers/api/token";
 import { verifyBody } from "../../../helpers/api/type-check";
 import { supabase } from "../../../db";
 import { APIResponseForm, convertToForm } from "../../../helpers/api/coding";
@@ -8,7 +8,7 @@ import { APIResponseForm, convertToForm } from "../../../helpers/api/coding";
 export default createEndpoint<APIResponseForm>({
 	POST: async ({ req, res }) => {
 
-		const user = await verifyUser(req);
+		const project = await verifyProject(req);
 
 		const { name, notifyAdmin, notifyResponder, domains, destination } = verifyBody(
 			req,
@@ -25,7 +25,7 @@ export default createEndpoint<APIResponseForm>({
 			.from('form')
 			.insert({
 				name: name.trim(),
-				user_id: user.id,
+				project_id: project.id,
 				notify_admin: notifyAdmin,
 				notify_responder: notifyResponder,
 				domains,

@@ -1,6 +1,6 @@
 import { T } from "@elijahjcobb/typr";
 import { createEndpoint } from "../../../../helpers/api/create-endpoint";
-import { verifyUser } from "../../../../helpers/api/token";
+import { verifyProject } from "../../../../helpers/api/token";
 import { verifyBody } from "../../../../helpers/api/type-check";
 import { supabase } from "../../../../db";
 import { APIError } from "../../../../helpers/api-error";
@@ -10,7 +10,7 @@ export default createEndpoint<APIResponseForm>({
 	DELETE: async ({ req, res }) => {
 		const formId = req.query.id;
 		if (typeof formId !== 'string') throw new APIError(400, "Invalid form ID.");
-		const user = await verifyUser(req);
+		const project = await verifyProject(req);
 
 		const { data, error } = await supabase
 			.from("form")
@@ -19,7 +19,7 @@ export default createEndpoint<APIResponseForm>({
 
 		if (!data || data.length < 1 || error) throw new APIError(404, "Form does not exist.");
 		const form = data[0];
-		if (form.user_id !== user.id) throw new APIError(404, "Form does not exist.");
+		if (form.project_id !== project.id) throw new APIError(404, "Form does not exist.");
 
 		const { error: deleteError } = await supabase
 			.from("form")
@@ -34,7 +34,7 @@ export default createEndpoint<APIResponseForm>({
 	GET: async ({ req, res }) => {
 		const formId = req.query.id;
 		if (typeof formId !== 'string') throw new APIError(400, "Invalid form ID.");
-		const user = await verifyUser(req);
+		const project = await verifyProject(req);
 
 		const { data, error } = await supabase
 			.from("form")
@@ -43,7 +43,7 @@ export default createEndpoint<APIResponseForm>({
 
 		if (!data || data.length < 1 || error) throw new APIError(404, "Form does not exist.");
 		const form = data[0];
-		if (form.user_id !== user.id) throw new APIError(404, "Form does not exist.");
+		if (form.project_id !== project.id) throw new APIError(404, "Form does not exist.");
 
 		res.json(convertToForm(form))
 
@@ -64,7 +64,7 @@ export default createEndpoint<APIResponseForm>({
 			})
 		);
 
-		const user = await verifyUser(req);
+		const project = await verifyProject(req);
 
 		const { data, error } = await supabase
 			.from("form")
@@ -73,7 +73,7 @@ export default createEndpoint<APIResponseForm>({
 
 		if (!data || data.length < 1 || error) throw new APIError(404, "Form does not exist.");
 		const form = data[0];
-		if (form.user_id !== user.id) throw new APIError(404, "Form does not exist.");
+		if (form.project_id !== project.id) throw new APIError(404, "Form does not exist.");
 
 		let name = body.name ?? '';
 		if (name.length === 0) name = form.name;
@@ -85,8 +85,6 @@ export default createEndpoint<APIResponseForm>({
 			domains: body.domains ?? [],
 			destination: body.destination ?? null,
 		};
-
-		console.log({ newFormData, body })
 
 		const { error: updateError } = await supabase
 			.from("form")

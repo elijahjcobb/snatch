@@ -50,7 +50,8 @@ export function DashboardPage({
 	const router = useRouter();
 
 	const handleSignOut = useCallback(() => {
-		deleteCookie("token");
+		deleteCookie("user");
+		deleteCookie("project");
 		router.push("/sign-in");
 	}, [router]);
 

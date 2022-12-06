@@ -34,9 +34,9 @@ export default createEndpoint<APIResponseUserSignIn>({
     const isCorrect = await verifyPassword(rawPassword, user.password);
     if (!isCorrect) throw BAD_ACCOUNT_ERROR;
 
-    const token = await tokenSign(user.id);
+    const token = await tokenSign(user.id, "user");
 
-    setCookie("token", token);
+    setCookie("user", token);
     res.json({ token });
   },
 });

@@ -25,7 +25,7 @@ export interface Database {
           id?: string
           created_at?: string
           form_id: string
-          fields: Json
+          fields?: Json
           email?: string | null
           first_name?: string | null
           last_name?: string | null
@@ -48,7 +48,7 @@ export interface Database {
         Row: {
           id: string
           created_at: string
-          user_id: string
+          project_id: string
           name: string
           notify_admin: boolean
           notify_responder: boolean
@@ -58,7 +58,7 @@ export interface Database {
         Insert: {
           id?: string
           created_at?: string
-          user_id: string
+          project_id: string
           name: string
           notify_admin?: boolean
           notify_responder?: boolean
@@ -68,12 +68,46 @@ export interface Database {
         Update: {
           id?: string
           created_at?: string
-          user_id?: string
+          project_id?: string
           name?: string
           notify_admin?: boolean
           notify_responder?: boolean
           domains?: string[]
           destination?: string | null
+        }
+      }
+      member: {
+        Row: {
+          created_at: string | null
+          user_id: string
+          project_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          user_id: string
+          project_id: string
+        }
+        Update: {
+          created_at?: string | null
+          user_id?: string
+          project_id?: string
+        }
+      }
+      project: {
+        Row: {
+          id: string
+          created_at: string | null
+          name: string
+        }
+        Insert: {
+          id?: string
+          created_at?: string | null
+          name: string
+        }
+        Update: {
+          id?: string
+          created_at?: string | null
+          name?: string
         }
       }
       user: {

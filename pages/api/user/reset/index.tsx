@@ -3,7 +3,6 @@ import { APIError } from "../../../../helpers/api-error";
 import { createEndpoint } from "../../../../helpers/api/create-endpoint";
 import { sendUserResetEmail } from "../../../../helpers/api/email";
 import { otpGenerate } from "../../../../helpers/api/otp";
-import { verifyUser } from "../../../../helpers/api/token";
 import { verifyBody } from "../../../../helpers/api/type-check";
 import { supabase } from "../../../../db";
 
