@@ -1,8 +1,9 @@
 import { createEndpoint } from "../../../helpers/api/create-endpoint";
 import { supabase } from "../../../db";
+import { HOST } from "../../../helpers/constants";
 
-const FORM_SUBMISSION_ERROR_URL = "http://localhost:3000/submission/error";
-const FORM_SUBMISSION_SUCCESS_URL = "http://localhost:3000/submission/success";
+const FORM_SUBMISSION_ERROR_URL = `${HOST}/submission/error`;
+const FORM_SUBMISSION_SUCCESS_URL = `${HOST}/submission/success`;
 
 export default createEndpoint({
   GET: async ({ req, res }) => {
