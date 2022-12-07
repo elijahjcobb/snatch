@@ -49,13 +49,13 @@ export default createEndpoint<APIResponseUserSignUp>({
     }
 
     const userId = data[0].id;
-    const token = await tokenSign(userId, "user");
+    const userToken = await tokenSign(userId, "user");
 
     const otp = otpGenerate(userId);
     console.log({ otp, userId });
     sendUserSignUpEmail(email, otp);
-    setCookie("user", token);
+    setCookie("user", userToken);
 
-    res.json({ token });
+    res.json({ token: userToken });
   },
 });

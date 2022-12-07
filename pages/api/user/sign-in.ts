@@ -6,6 +6,7 @@ import { tokenSign } from "../../../helpers/api/token";
 import { verifyBody } from "../../../helpers/api/type-check";
 import { supabase } from "../../../db";
 import { setCookie } from "cookies-next";
+import { da } from "date-fns/locale";
 
 export interface APIResponseUserSignIn {
   token: string;
@@ -37,6 +38,22 @@ export default createEndpoint<APIResponseUserSignIn>({
     const token = await tokenSign(user.id, "user");
 
     setCookie("user", token);
+
+    const { data: memberData, error: memberError } = await supabase
+      .from("project_user")
+      .select()
+      .eq("user_id", user.id);
+
+    if (memberError || !memberData) {
+      throw new APIError(500, "Could not fetch user projects.");
+    }
+
+    if (data.length === 1) {
+      const project = data[0];
+      const projectToken = await tokenSign(project.id, "project");
+      setCookie("project", projectToken);
+    }
+
     res.json({ token });
   },
 });
