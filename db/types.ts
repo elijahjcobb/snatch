@@ -78,17 +78,17 @@ export interface Database {
       }
       member: {
         Row: {
-          created_at: string | null
+          created_at: string
           user_id: string
           project_id: string
         }
         Insert: {
-          created_at?: string | null
+          created_at?: string
           user_id: string
           project_id: string
         }
         Update: {
-          created_at?: string | null
+          created_at?: string
           user_id?: string
           project_id?: string
         }
@@ -96,17 +96,17 @@ export interface Database {
       project: {
         Row: {
           id: string
-          created_at: string | null
+          created_at: string
           name: string
         }
         Insert: {
           id?: string
-          created_at?: string | null
+          created_at?: string
           name: string
         }
         Update: {
           id?: string
-          created_at?: string | null
+          created_at?: string
           name?: string
         }
       }
@@ -141,13 +141,22 @@ export interface Database {
       contacts: {
         Row: {
           form_id: string | null
-          user_id: string | null
+          project_id: string | null
           entry_id: string | null
           first_name: string | null
           last_name: string | null
           phone: string | null
           email: string | null
           created_at: string | null
+        }
+      }
+      project_user: {
+        Row: {
+          name: string | null
+          project_created_at: string | null
+          project_id: string | null
+          member_created_at: string | null
+          user_id: string | null
         }
       }
     }

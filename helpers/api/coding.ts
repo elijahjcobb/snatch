@@ -78,3 +78,23 @@ export function convertToResponse(raw: APIRawEntry): APIResponseEntry {
     message: raw.message,
   };
 }
+
+export interface APIRawProject {
+  name: string;
+  created_at: string;
+  id: string;
+}
+
+export interface APIResponseProject {
+  name: string;
+  createdAt: string;
+  id: string;
+}
+
+export function convertToProject(raw: APIRawProject): APIResponseProject {
+  return {
+    name: raw.name,
+    createdAt: raw.created_at,
+    id: raw.id,
+  };
+}

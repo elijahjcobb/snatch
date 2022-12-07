@@ -1,0 +1,99 @@
+.picker {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--sp);
+  width: 100%;
+  height: var(--sp-6);
+  border-radius: var(--sp);
+  outline: none;
+  background: var(--acc-1);
+  gap: var(--sp);
+  font-size: 1rem;
+  border: solid 1px var(--acc-2);
+  color: var(--sec);
+  transition: var(--trans);
+  cursor: pointer;
+  font-family: var(--font-grotesk);
+}
+
+.picker span {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.logo {
+  width: var(--sp-4);
+  height: var(--sp-4);
+  border-radius: 50%;
+  background: linear-gradient(var(--blue), blue);
+  filter: saturate(0);
+}
+
+.picker:hover {
+  color: var(--fg);
+  background: var(--bg);
+}
+
+.picker:hover .logo {
+  filter: none;
+}
+
+.icon {
+  width: var(--sp-3);
+  height: var(--sp-3);
+  transform: rotate(90deg);
+  transition: var(--trans);
+}
+
+.picker:hover .icon {
+  transform: rotate(0deg);
+}
+
+.iconFlip {
+  transform: rotate(180deg) !important;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.overlay {
+  width: 100%;
+  position: absolute;
+  bottom: var(--sp-6);
+  left: 0;
+  display: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
+.row {
+  width: 100%;
+  background: var(--acc-1);
+  border-radius: var(--sp);
+  margin-bottom: var(--sp-2);
+  transition: var(--trans);
+  box-shadow: 0 0 var(--sp-4) var(--acc-2);
+  border: solid 1px var(--acc-2) !important;
+  font-family: var(--font-grotesk);
+  font-size: 1rem;
+}
+
+.row:hover {
+  border: solid 1px var(--acc-3) !important;
+}
+
+.row > * {
+  transition: var(--trans);
+}
+
+.row:hover svg {
+  transform: translateX(var(--sp)) scale(1.15);
+}

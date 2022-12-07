@@ -95,7 +95,7 @@ export function AuthPage({
 		})
 			.then(({ token }) => {
 				if (type !== 'code') setCookie("user", token, { expires: getDate90DaysInFuture() })
-				router.push(type === 'sign-up' ? '/code' : "/");
+				router.push(type === 'sign-up' ? '/code' : "/projects");
 			}).catch((err) => {
 				toast({ status: 'error', message: err?.message })
 			}).finally(() => {

@@ -33,7 +33,7 @@
 }
 
 .secondary {
-  background: var(--bg);
+  background: var(--acc-1);
   color: var(--acc-4);
   border: solid 1px var(--acc-2);
 }
@@ -41,6 +41,7 @@
 .secondary:hover,
 .button:focus-visible {
   color: var(--acc-6);
+  background: var(--bg);
   border: solid 1px var(--acc-5);
 }
 
