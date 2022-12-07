@@ -1,5 +1,4 @@
-import Head from "next/head";
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 import { Footer } from "../footer";
 import { Header } from "../header";
 import styles from "./index.module.css";

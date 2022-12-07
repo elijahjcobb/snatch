@@ -9,12 +9,8 @@ import { ImSpinner } from "react-icons/im";
 import { IoMail, IoLockClosed, IoPerson, IoShieldCheckmarkSharp } from 'react-icons/io5';
 import clsx from "clsx";
 import { fetcher } from "../../helpers/front/fetch";
-import { APIError } from "../../helpers/api-error";
 import { APIResponseUserSignIn } from "../../pages/api/user/sign-in";
-import { APIResponseUserSignUp } from "../../pages/api/user/sign-up";
-import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
-import { getDate90DaysInFuture } from "../../helpers/date";
 import Link from "next/link";
 import { setCookie30Day } from "../../helpers/cookie";
 
