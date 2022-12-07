@@ -1,5 +1,4 @@
 import { T } from "@elijahjcobb/typr";
-import { setCookie } from "cookies-next";
 import { APIError } from "../../../helpers/api-error";
 import { createEndpoint } from "../../../helpers/api/create-endpoint";
 import { sendUserSignUpEmail } from "../../../helpers/api/email";
@@ -8,6 +7,7 @@ import { createPassword } from "../../../helpers/api/password";
 import { tokenSign } from "../../../helpers/api/token";
 import { verifyBody } from "../../../helpers/api/type-check";
 import { supabase } from "../../../db";
+import { setCookie30Day } from "../../../helpers/cookie";
 
 export interface APIResponseUserSignUp {
   token: string;
@@ -52,9 +52,8 @@ export default createEndpoint<APIResponseUserSignUp>({
     const userToken = await tokenSign(userId, "user");
 
     const otp = otpGenerate(userId);
-    console.log({ otp, userId });
     sendUserSignUpEmail(email, otp);
-    setCookie("user", userToken);
+    setCookie30Day("user", userToken);
 
     res.json({ token: userToken });
   },

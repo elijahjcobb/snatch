@@ -5,11 +5,12 @@ import { verifyPassword } from "../../../helpers/api/password";
 import { tokenSign } from "../../../helpers/api/token";
 import { verifyBody } from "../../../helpers/api/type-check";
 import { supabase } from "../../../db";
-import { setCookie } from "cookies-next";
-import { da } from "date-fns/locale";
+import { setCookie30Day } from "../../../helpers/cookie";
 
 export interface APIResponseUserSignIn {
-  token: string;
+  userToken: string;
+  projectToken?: string;
+  projectId?: string;
 }
 
 const BAD_ACCOUNT_ERROR = new APIError(401, "Invalid username or password.");
@@ -37,7 +38,7 @@ export default createEndpoint<APIResponseUserSignIn>({
 
     const token = await tokenSign(user.id, "user");
 
-    setCookie("user", token);
+    setCookie30Day("user", token);
 
     const { data: memberData, error: memberError } = await supabase
       .from("project_user")
@@ -48,12 +49,15 @@ export default createEndpoint<APIResponseUserSignIn>({
       throw new APIError(500, "Could not fetch user projects.");
     }
 
-    if (data.length === 1) {
-      const project = data[0];
-      const projectToken = await tokenSign(project.id, "project");
-      setCookie("project", projectToken);
+    let projectToken: string | undefined;
+    let projectId: string | undefined;
+
+    if (memberData.length > 0) {
+      const member = memberData[0];
+      projectId = member.project_id!;
+      projectToken = await tokenSign(projectId, "project");
     }
 
-    res.json({ token });
+    res.json({ userToken: token, projectId, projectToken });
   },
 });

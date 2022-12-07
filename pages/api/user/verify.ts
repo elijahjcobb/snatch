@@ -5,8 +5,8 @@ import { otpVerify } from "../../../helpers/api/otp";
 import { tokenSign, verifyUser } from "../../../helpers/api/token";
 import { verifyBody } from "../../../helpers/api/type-check";
 import { supabase } from "../../../db";
-import { setCookie } from "cookies-next";
 import { APIError } from "../../../helpers/api-error";
+import { setCookie30Day } from "../../../helpers/cookie";
 
 export interface APIResponseUserVerify {
   valid: boolean;
@@ -19,7 +19,6 @@ export default createEndpoint<APIResponseUserVerify>({
 
     if (user.verified) {
       res.json({ valid: true });
-      console.log("already verified");
       return;
     }
 
@@ -56,7 +55,7 @@ export default createEndpoint<APIResponseUserVerify>({
     }
 
     const projectToken = await tokenSign(project.id, "project");
-    setCookie("project", projectToken);
+    setCookie30Day("project", projectToken);
 
     res.json({ valid: true });
   },

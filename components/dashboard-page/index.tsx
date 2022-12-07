@@ -53,6 +53,7 @@ export function DashboardPage({
 	const handleSignOut = useCallback(() => {
 		deleteCookie("user");
 		deleteCookie("project");
+		deleteCookie("projectId");
 		router.push("/sign-in");
 	}, [router]);
 

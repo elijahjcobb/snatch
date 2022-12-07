@@ -1,10 +1,10 @@
 import clsx from "clsx";
-import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { useCallback, useMemo } from "react";
 import { BsChevronRight } from "react-icons/bs";
 import { DashboardPageLoader } from "../components/dashboard-page";
 import { MarketingPage } from "../components/marketing-page";
+import { setCookie30Day } from "../helpers/cookie";
 import { useFetch } from "../helpers/front/fetch";
 import styles from "../styles/projects.module.css";
 import { APIResponseUserProject, APIResponseUserProjects } from "./api/user/projects";
@@ -42,8 +42,8 @@ export function ProjectsPickerRow({
 	const router = useRouter();
 
 	const handleClick = useCallback(() => {
-		setCookie('project', data.token);
-		setCookie('projectId', data.project.id);
+		setCookie30Day('project', data.token);
+		setCookie30Day('projectId', data.project.id);
 		if (reload) router.reload();
 		else router.push("/dashboard");
 		if (onClick) onClick();

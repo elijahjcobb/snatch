@@ -16,6 +16,7 @@ import { setCookie } from "cookies-next";
 import { useRouter } from "next/router";
 import { getDate90DaysInFuture } from "../../helpers/date";
 import Link from "next/link";
+import { setCookie30Day } from "../../helpers/cookie";
 
 function Feature({ title, subtitle }: { title: string, subtitle: string }) {
 	return <div className={styles.feature}>
@@ -88,13 +89,15 @@ export function AuthPage({
 			url = "/verify"
 		}
 
-		fetcher<APIResponseUserSignIn | APIResponseUserSignUp>({
+		fetcher<APIResponseUserSignIn>({
 			path: `/user${url}`,
 			method: 'post',
 			body
 		})
-			.then(({ token }) => {
-				if (type !== 'code') setCookie("user", token, { expires: getDate90DaysInFuture() })
+			.then((res) => {
+				if (type !== 'code') setCookie30Day('user', res.userToken);
+				if (res.projectId) setCookie30Day('projectId', res.projectId);
+				if (res.projectToken) setCookie30Day('project', res.projectToken);
 				router.push(type === 'sign-up' ? '/code' : "/");
 			}).catch((err) => {
 				toast({ status: 'error', message: err?.message })

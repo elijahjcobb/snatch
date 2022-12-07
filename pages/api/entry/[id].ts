@@ -76,8 +76,6 @@ export default createEndpoint({
       message,
     };
 
-    console.log(x);
-
     const { error: insertError } = await supabase.from("entry").insert(x);
     if (insertError) {
       console.error(insertError);
