@@ -9,7 +9,8 @@ import { APIError } from "../../../helpers/api-error";
 import { setCookie30Day } from "../../../helpers/cookie";
 
 export interface APIResponseUserVerify {
-  valid: boolean;
+  projectToken?: string;
+  projectId?: string;
 }
 
 export default createEndpoint<APIResponseUserVerify>({
@@ -18,14 +19,14 @@ export default createEndpoint<APIResponseUserVerify>({
     const user = await verifyUser(req, { allowUnverified: true });
 
     if (user.verified) {
-      res.json({ valid: true });
+      res.json({});
       return;
     }
 
     const isValidOTP = otpVerify({ key: user.id, code });
 
     if (!isValidOTP) {
-      res.json({ valid: false });
+      res.json({});
       return;
     }
 
@@ -35,7 +36,7 @@ export default createEndpoint<APIResponseUserVerify>({
     const { data: projectData, error: projectError } = await supabase
       .from("project")
       .insert({
-        name: "",
+        name: `${user.name.split(" ")[0]}'s Project`,
       })
       .select();
 
@@ -57,6 +58,6 @@ export default createEndpoint<APIResponseUserVerify>({
     const projectToken = await tokenSign(project.id, "project");
     setCookie30Day("project", projectToken);
 
-    res.json({ valid: true });
+    res.json({ projectToken, projectId: project.id });
   },
 });

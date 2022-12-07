@@ -8,12 +8,9 @@ import { tokenSign } from "../../../helpers/api/token";
 import { verifyBody } from "../../../helpers/api/type-check";
 import { supabase } from "../../../db";
 import { setCookie30Day } from "../../../helpers/cookie";
+import { APIResponseUserSignIn } from "./sign-in";
 
-export interface APIResponseUserSignUp {
-  token: string;
-}
-
-export default createEndpoint<APIResponseUserSignUp>({
+export default createEndpoint<APIResponseUserSignIn>({
   POST: async ({ req, res }) => {
     const {
       email,
@@ -55,6 +52,6 @@ export default createEndpoint<APIResponseUserSignUp>({
     sendUserSignUpEmail(email, otp);
     setCookie30Day("user", userToken);
 
-    res.json({ token: userToken });
+    res.json({ userToken });
   },
 });

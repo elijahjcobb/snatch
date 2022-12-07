@@ -92,15 +92,18 @@ export function AuthPage({
 		fetcher<APIResponseUserSignIn>({
 			path: `/user${url}`,
 			method: 'post',
-			body
+			body,
+			showLoadingToast: false
 		})
-			.then((res) => {
-				if (type !== 'code') setCookie30Day('user', res.userToken);
-				if (res.projectId) setCookie30Day('projectId', res.projectId);
-				if (res.projectToken) setCookie30Day('project', res.projectToken);
-				router.push(type === 'sign-up' ? '/code' : "/");
-			}).catch((err) => {
-				toast({ status: 'error', message: err?.message })
+			.then(({ userToken, projectId, projectToken }) => {
+				if (userToken) setCookie30Day('user', userToken);
+				if ((!projectId || !projectToken) && type === 'code') {
+					toast({ status: "error", message: "Invalid code." })
+					return
+				}
+				if (projectId) setCookie30Day('projectId', projectId);
+				if (projectToken) setCookie30Day('project', projectToken);
+				router.push(type === 'sign-up' ? '/code' : "/dashboard");
 			}).finally(() => {
 				setLoading(false);
 			})
