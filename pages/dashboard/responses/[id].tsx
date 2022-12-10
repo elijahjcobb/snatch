@@ -30,7 +30,7 @@ export default function Page() {
 					href={`/dashboard/forms/${data.form.id}`}
 				/>
 			</div>
-			<EntriesTable entries={data.responses} />
+			<EntriesTable form={data.form} entries={data.responses} />
 		</> : <DashboardPageLoader />}
 	</DashboardPage>
 }

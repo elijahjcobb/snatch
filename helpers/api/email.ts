@@ -1,5 +1,6 @@
 import formData from "form-data";
 import Mailgun from "mailgun.js";
+import type { APIRawForm } from "./coding";
 
 const MAILGUN_API_KEY = process.env.MAILGUN_API_KEY;
 if (!MAILGUN_API_KEY) throw new Error("No mailgun key in env.");
@@ -14,14 +15,14 @@ export function sendEmail({
   subject,
   content,
 }: {
-  to: string;
+  to: string | string[];
   subject: string;
   content: string;
 }): void {
   mailgun.messages
     .create("mail.snatch.fyi", {
       from: "Snatch <noreply@mail.snatch.fyi>",
-      to: [to],
+      to,
       subject,
       text: content,
     })
@@ -60,5 +61,21 @@ export function sendUserResetEmailPost(email: string) {
     to: email,
     subject: "Snatch Password Reset",
     content: `Hello!\n\nYour password has been reset on snatch.fyi!\n\n- The snatch team`,
+  });
+}
+
+export function sendFormSubmittedTeam(emails: string[], form: APIRawForm) {
+  sendEmail({
+    to: emails,
+    subject: `Your form '${form.name}' has a new response.`,
+    content: `Hello!\n\nYour form has a new response. Check it out on snatch!\n\nhttps://snatch.fyi/dashboard/responses/${form.id}\n\n- The snatch team`,
+  });
+}
+
+export function sendFormSubmittedUser(email: string, form: APIRawForm) {
+  sendEmail({
+    to: email,
+    subject: "Form Submitted",
+    content: `Hello!\n\nYour form entry was submitted!\n\n- The snatch team`,
   });
 }

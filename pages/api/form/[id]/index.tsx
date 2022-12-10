@@ -5,6 +5,7 @@ import { verifyBody } from "../../../../helpers/api/type-check";
 import { supabase } from "../../../../db";
 import { APIError } from "../../../../helpers/api-error";
 import { APIResponseForm, convertToForm } from "../../../../helpers/api/coding";
+import { assertArrayFilled } from "../../../../helpers/assert-filled";
 
 export default createEndpoint<APIResponseForm>({
 	DELETE: async ({ req, res }) => {
@@ -60,6 +61,7 @@ export default createEndpoint<APIResponseForm>({
 				notifyAdmin: T.optional(T.boolean()),
 				notifyResponder: T.optional(T.boolean()),
 				domains: T.optional(T.array(T.string())),
+				keys: T.optional(T.array(T.string())),
 				destination: T.optional(T.regex.url()),
 			})
 		);
@@ -82,7 +84,8 @@ export default createEndpoint<APIResponseForm>({
 			name,
 			notify_admin: body.notifyAdmin ?? false,
 			notify_responder: body.notifyResponder ?? false,
-			domains: body.domains ?? [],
+			domains: assertArrayFilled(body.domains ?? []),
+			keys: assertArrayFilled(body.keys ?? []),
 			destination: body.destination ?? null,
 		};
 

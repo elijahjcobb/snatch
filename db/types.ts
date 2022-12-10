@@ -54,6 +54,7 @@ export interface Database {
           notify_responder: boolean
           domains: string[]
           destination: string | null
+          keys: string[]
         }
         Insert: {
           id?: string
@@ -64,6 +65,7 @@ export interface Database {
           notify_responder?: boolean
           domains?: string[]
           destination?: string | null
+          keys?: string[]
         }
         Update: {
           id?: string
@@ -74,6 +76,7 @@ export interface Database {
           notify_responder?: boolean
           domains?: string[]
           destination?: string | null
+          keys?: string[]
         }
       }
       member: {
@@ -148,6 +151,13 @@ export interface Database {
           phone: string | null
           email: string | null
           created_at: string | null
+        }
+      }
+      dashboard: {
+        Row: {
+          p_id: string | null
+          contact_count: number | null
+          ent_count: number | null
         }
       }
       project_user: {

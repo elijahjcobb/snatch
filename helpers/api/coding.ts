@@ -7,6 +7,7 @@ export interface APIResponseForm {
   name: string;
   notifyAdmin: boolean;
   notifyResponder: boolean;
+  keys: string[];
   domains: string[];
   destination: string | null;
 }
@@ -19,6 +20,7 @@ export interface APIRawForm {
   notify_admin: boolean;
   notify_responder: boolean;
   domains: string[];
+  keys: string[];
   destination: string | null;
 }
 
@@ -32,6 +34,7 @@ export function convertToForm(rawForm: APIRawForm): APIResponseForm {
     notifyResponder: rawForm.notify_responder,
     domains: rawForm.domains,
     destination: rawForm.destination,
+    keys: rawForm.keys,
   };
 }
 

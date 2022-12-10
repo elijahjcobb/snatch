@@ -1,23 +1,26 @@
 import clsx from "clsx";
 import { useMemo } from "react";
-import { APIResponseEntry } from "../../helpers/api/coding";
+import { APIResponseEntry, APIResponseForm } from "../../helpers/api/coding";
 import { truncate } from "../../helpers/front/truncate";
 import styles from "./index.module.css";
 
 export function EntriesTable({
-	entries
+	entries,
+	form
 }: {
 	entries: APIResponseEntry[];
+	form: APIResponseForm;
 }) {
 
 	const headers = useMemo<string[]>(() => {
+		if (form.keys.length > 0) return form.keys;
 		const items = new Set<string>();
 		for (const entry of entries) {
 			const fields = typeof entry.fields === 'object' ? entry.fields as {} : {};
 			for (const key of Object.keys(fields)) items.add(key);
 		}
 		return Array.from(items).sort();
-	}, [entries]);
+	}, [entries, form]);
 
 	return <div className={styles.tableContainer}>
 		<table className={styles.table}>

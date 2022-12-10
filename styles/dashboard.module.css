@@ -1,0 +1,5 @@
+.cards {
+  display: flex;
+  gap: var(--sp-4);
+  margin: var(--sp-4) 0;
+}

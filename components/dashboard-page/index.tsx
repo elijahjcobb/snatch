@@ -4,7 +4,7 @@ import { IconType } from "react-icons/lib";
 import { BasePage } from "../base-page";
 import { Icon } from "../icon";
 import styles from "./index.module.css";
-import { IoStorefront, IoRocket, IoStatsChart, IoSettings, IoPersonCircle, IoReceipt } from "react-icons/io5";
+import { IoStorefront, IoRocket, IoSettings, IoPersonCircle, IoReceipt } from "react-icons/io5";
 import { useRouter } from "next/router";
 import clsx from "clsx";
 import { Button } from "../button";
@@ -84,11 +84,6 @@ export function DashboardPage({
 						href='/dashboard/contacts'
 						name="Contacts"
 						icon={IoPersonCircle}
-					/>
-					<DashboardLink
-						href='/dashboard/analytics'
-						name="Analytics"
-						icon={IoStatsChart}
 					/>
 					<DashboardLink
 						href='/dashboard/settings'

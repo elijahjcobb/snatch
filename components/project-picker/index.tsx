@@ -3,11 +3,11 @@ import { useMemo, useState } from "react";
 import { APIResponseProject } from "../../helpers/api/coding";
 import { useFetch } from "../../helpers/front/fetch"
 import { APIResponseUserProjects } from "../../pages/api/user/projects"
-import { IoChevronUpCircle } from "react-icons/io5";
+import { IoChevronUpCircle, IoAdd } from "react-icons/io5";
 import styles from "./index.module.css";
 import { useRouter } from "next/router";
 import clsx from "clsx";
-import { ProjectsPickerRow } from "../../pages/projects";
+import { BaseProjectsPickerRow, ProjectsPickerRow } from "../../pages/projects";
 
 export function ProjectPicker() {
 
@@ -35,6 +35,12 @@ export function ProjectPicker() {
 
 	return <div className={styles.container}>
 		{data ? <div className={clsx(styles.overlay, showOverlay && styles.show)}>
+			<BaseProjectsPickerRow
+				value="Create Project"
+				className={styles.create}
+				icon={IoAdd}
+				onClick={() => router.push("/projects/create")}
+			/>
 			{data.map(d => <ProjectsPickerRow
 				onClick={() => setShowOverlay(false)}
 				className={styles.row}

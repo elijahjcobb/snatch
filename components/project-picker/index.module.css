@@ -21,6 +21,21 @@
   text-align: left;
 }
 
+.picker > * {
+  animation: fadeIn 125ms ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .logo {
   width: var(--sp-4);
   height: var(--sp-4);
@@ -74,7 +89,8 @@
   display: block;
 }
 
-.row {
+.row,
+.create {
   width: 100%;
   background: var(--acc-1);
   border-radius: var(--sp);
@@ -86,14 +102,20 @@
   font-size: 1rem;
 }
 
-.row:hover {
+.row:hover,
+.create:hover {
   border: solid 1px var(--acc-3) !important;
 }
 
-.row > * {
+.row > *,
+.create > * {
   transition: var(--trans);
 }
 
 .row:hover svg {
   transform: translateX(var(--sp)) scale(1.15);
+}
+
+.create:hover svg {
+  transform: scale(1.25);
 }

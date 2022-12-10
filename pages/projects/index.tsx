@@ -1,13 +1,14 @@
 import clsx from "clsx";
 import { useRouter } from "next/router";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
+import { IconType } from "react-icons";
 import { BsChevronRight } from "react-icons/bs";
-import { DashboardPageLoader } from "../components/dashboard-page";
-import { MarketingPage } from "../components/marketing-page";
-import { setCookie30Day } from "../helpers/cookie";
-import { useFetch } from "../helpers/front/fetch";
-import styles from "../styles/projects.module.css";
-import { APIResponseUserProject, APIResponseUserProjects } from "./api/user/projects";
+import { DashboardPageLoader } from "../../components/dashboard-page";
+import { MarketingPage } from "../../components/marketing-page";
+import { setCookie30Day } from "../../helpers/cookie";
+import { useFetch } from "../../helpers/front/fetch";
+import styles from "../../styles/projects.module.css";
+import { APIResponseUserProject, APIResponseUserProjects } from "../api/user/projects";
 
 export default function ProjectsPage() {
 
@@ -49,9 +50,28 @@ export function ProjectsPickerRow({
 		if (onClick) onClick();
 	}, [data.token, router, data.project.id, onClick, reload]);
 
-	return <button onClick={handleClick} className={clsx(styles.row, className)}>
-		<span>{data.project.name}</span>
-		<BsChevronRight size={18} />
+	return <BaseProjectsPickerRow
+		icon={BsChevronRight}
+		value={data.project.name}
+		onClick={handleClick}
+		className={className}
+	/>
+}
+
+export function BaseProjectsPickerRow({
+	icon: Icon,
+	value,
+	onClick,
+	className
+}: {
+	icon: IconType,
+	value: string,
+	onClick?: () => void,
+	className?: string
+}) {
+	return <button onClick={onClick} className={clsx(styles.row, className)}>
+		<span>{value}</span>
+		<Icon size={18} />
 	</button>
 }
 

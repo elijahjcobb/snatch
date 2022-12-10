@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { APIResponseForm } from "../../helpers/api/coding";
 import { Field } from "../field";
 import styles from "./index.module.css";
-import { IoPencil, IoLink, IoEarth } from "react-icons/io5";
+import { IoPencil, IoLink, IoEarth, IoKey } from "react-icons/io5";
 import { Button } from "../button";
 import { IoAdd, IoTrash, IoSave } from "react-icons/io5";
 import { fetcher } from "../../helpers/front/fetch";
@@ -25,6 +25,7 @@ export function FormView({
 	const [name, setName] = useState(form?.name ?? "");
 	const [destination, setDestination] = useState(form?.destination ?? "");
 	const [domains, setDomains] = useState(form?.domains.join(",") ?? "");
+	const [keys, setKeys] = useState(form?.keys.join(",") ?? "");
 	const [notifyAdmin, setNotifyAdmin] = useState(form?.notifyAdmin ?? false);
 	const [notifyResponder, setNotifyResponder] = useState(form?.notifyResponder ?? false);
 	const [loading, setLoading] = useState(false);
@@ -49,6 +50,7 @@ export function FormView({
 				name: name.trim(),
 				destination: destination.trim().length > 0 ? destination.trim() : undefined,
 				domains: domains.split(","),
+				keys: keys.split(","),
 				notifyAdmin,
 				notifyResponder,
 			},
@@ -56,10 +58,9 @@ export function FormView({
 		}).then((res) => {
 			if (onFormChange) {
 				onFormChange(res);
-				setName(form?.name ?? name);
-			} else router.push("/dashboard/forms");
+			} else router.push(`/dashboard/forms/${res.id}`);
 		}).catch(console.error).finally(() => setLoading(false))
-	}, [form, name, destination, domains, onFormChange, router, notifyAdmin, notifyResponder]);
+	}, [form, name, keys, destination, domains, onFormChange, router, notifyAdmin, notifyResponder]);
 
 	return <div className={styles.page}>
 		{title ? <h2>{title}</h2> : null}
@@ -73,6 +74,18 @@ export function FormView({
 				onChange={setName}
 				placeholder='A form hosted on snatch'
 				label="name" />
+		</section>
+		<section>
+			<h3>Keys</h3>
+			<p>A comma separated list (with no spaces) of the keys we should index on. If none are provided, all keys from responses will be used to index your data.</p>
+			<Field
+				value={keys}
+				icon={IoKey}
+				onChange={setKeys}
+				disabled={loading}
+				label='keys'
+				mono
+				placeholder={`firstName,lastName,email`} />
 		</section>
 		<section>
 			<h3>Destination</h3>
@@ -92,7 +105,6 @@ export function FormView({
 			<Field
 				value={domains}
 				icon={IoEarth}
-				showLabel
 				disabled={loading}
 				onChange={setDomains}
 				mono

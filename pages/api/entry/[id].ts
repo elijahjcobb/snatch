@@ -1,6 +1,11 @@
 import { createEndpoint } from "../../../helpers/api/create-endpoint";
 import { supabase } from "../../../db";
 import { HOST } from "../../../helpers/constants";
+import {
+  sendEmail,
+  sendFormSubmittedTeam,
+  sendFormSubmittedUser,
+} from "../../../helpers/api/email";
 
 const FORM_SUBMISSION_ERROR_URL = `${HOST}/submission/error`;
 const FORM_SUBMISSION_SUCCESS_URL = `${HOST}/submission/success`;
@@ -43,6 +48,15 @@ export default createEndpoint({
 
     const form = data[0];
 
+    if (
+      form.domains.length > 0 &&
+      req.headers.host &&
+      form.domains.indexOf(req.headers.host) === -1
+    ) {
+      res.redirect(FORM_SUBMISSION_ERROR_URL);
+      return;
+    }
+
     function getItemFromForm(value: string): string | null {
       let newValue = body[value];
       if (typeof newValue !== "string") newValue = null;
@@ -66,7 +80,7 @@ export default createEndpoint({
       }
     }
 
-    const x = {
+    const { error: insertError } = await supabase.from("entry").insert({
       form_id: form.id,
       fields: body,
       email,
@@ -74,9 +88,7 @@ export default createEndpoint({
       last_name: lastName,
       phone,
       message,
-    };
-
-    const { error: insertError } = await supabase.from("entry").insert(x);
+    });
     if (insertError) {
       console.error(insertError);
       res.redirect(FORM_SUBMISSION_ERROR_URL);
@@ -85,5 +97,26 @@ export default createEndpoint({
 
     const nextUrl = form.destination ?? FORM_SUBMISSION_SUCCESS_URL;
     res.redirect(nextUrl);
+
+    if (form.notify_responder && email) sendFormSubmittedUser(email, form);
+    if (form.notify_admin) {
+      const { data: owners, error: ownersError } = await supabase
+        .from("member")
+        .select(
+          `
+          user (
+            email
+          )
+        `
+        )
+        .eq("project_id", form.project_id);
+      if (ownersError || !owners) {
+        console.error(ownersError);
+        return;
+      }
+      // @ts-ignore - ignore error
+      let emails = owners.map((o) => o.user?.email) as string[];
+      sendFormSubmittedTeam(emails, form);
+    }
   },
 });

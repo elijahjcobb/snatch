@@ -1,7 +1,7 @@
 import { supabase } from "../../../db";
 import { APIError } from "../../../helpers/api-error";
 import { createEndpoint } from "../../../helpers/api/create-endpoint";
-import { verifyUser } from "../../../helpers/api/token";
+import { verifyProject } from "../../../helpers/api/token";
 
 export interface APIResponseContact {
   firstName: string | null;
@@ -16,12 +16,12 @@ export type APIResponseContacts = APIResponseContact[];
 
 export default createEndpoint<APIResponseContacts>({
   GET: async ({ req, res }) => {
-    const user = await verifyUser(req);
+    const project = await verifyProject(req);
 
     const { data, error } = await supabase
       .from("contacts")
       .select()
-      .eq("user_id", user.id);
+      .eq("project_id", project.id);
 
     if (error) {
       console.error(error);

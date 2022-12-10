@@ -1,0 +1,29 @@
+import { supabase } from "../../../db";
+import { APIError } from "../../../helpers/api-error";
+import { createEndpoint } from "../../../helpers/api/create-endpoint";
+import { verifyProject } from "../../../helpers/api/token";
+
+export interface APIResponseDashboard {
+  entries: number;
+  contacts: number;
+}
+
+export default createEndpoint<APIResponseDashboard>({
+  GET: async ({ req, res }) => {
+    const project = await verifyProject(req);
+
+    const { data, error } = await supabase
+      .from("dashboard")
+      .select()
+      .eq("p_id", project.id);
+    if (error || !data) {
+      console.error(error);
+      throw new APIError(500, "Could not fetch dashboard.");
+    }
+    const dashboard = data[0];
+    res.json({
+      contacts: dashboard?.contact_count ?? 0,
+      entries: dashboard?.ent_count ?? 0,
+    });
+  },
+});
