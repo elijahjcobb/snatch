@@ -54,3 +54,7 @@
 .button:disabled:hover {
   transform: none;
 }
+
+.destructive {
+  --col: var(--red);
+}
