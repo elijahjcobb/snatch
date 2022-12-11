@@ -9,6 +9,16 @@
   gap: 1px;
 }
 
+.top {
+  display: flex;
+  align-items: center;
+  gap: var(--sp);
+}
+
+.top h1 {
+  flex-grow: 1;
+}
+
 .container {
   border: solid 1px var(--acc-2);
   background: var(--acc-1);

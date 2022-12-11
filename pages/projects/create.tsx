@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import { DashboardPage } from "../../components/dashboard-page";
 import { Field } from "../../components/field";
 import { RxLetterCaseCapitalize } from "react-icons/rx";
 import { Button } from "../../components/button";
@@ -8,6 +7,8 @@ import { fetcher } from "../../helpers/front/fetch";
 import { APIResponseUserProjects } from "../api/user/projects";
 import { setCookie30Day } from "../../helpers/cookie";
 import { useRouter } from "next/router";
+import { BasePage } from "../../components/base-page";
+import styles from "../../styles/projects-create.module.css";
 
 export default function ProjectsCreatePage() {
 
@@ -31,23 +32,27 @@ export default function ProjectsCreatePage() {
 		})
 	}, [name, router]);
 
-	return <DashboardPage useMaxWidth>
-		<h2>Create Project</h2>
-		<section>
-			<h3>Name</h3>
-			<Field
-				disabled={loading}
-				value={name}
-				onChange={setName}
-				placeholder='Name'
-				icon={RxLetterCaseCapitalize}
-			/>
-		</section>
-		<Button
-			disabled={loading}
-			icon={IoAdd}
-			onClick={handleSubmit}
-			value="Create Project"
-		/>
-	</DashboardPage>
+	return <BasePage>
+		<div className={styles.page}>
+			<div className={styles.modal}>
+				<h2>Create Project</h2>
+				<section>
+					<h3>Name</h3>
+					<Field
+						disabled={loading}
+						value={name}
+						onChange={setName}
+						placeholder='Name'
+						icon={RxLetterCaseCapitalize}
+					/>
+				</section>
+				<Button
+					disabled={loading}
+					icon={IoAdd}
+					onClick={handleSubmit}
+					value="Create Project"
+				/>
+			</div>
+		</div>
+	</BasePage>
 }

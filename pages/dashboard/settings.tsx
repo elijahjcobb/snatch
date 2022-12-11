@@ -1,10 +1,12 @@
+
 import { DashboardPage } from "../../components/dashboard-page";
+import { SettingsProjectDelete } from "../../components/settings/project/delete";
+import { SettingsProjectName } from "../../components/settings/project/name";
 
 export default function Page() {
 	return <DashboardPage useMaxWidth title='settings'>
-		<section>
-			<h2>Settings</h2>
-			<p>Coming soon...</p>
-		</section>
+		<h2>Project Settings</h2>
+		<SettingsProjectName />
+		<SettingsProjectDelete />
 	</DashboardPage>
 }

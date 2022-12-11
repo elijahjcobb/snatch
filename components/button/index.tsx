@@ -16,7 +16,8 @@ export function Button({
 	secondary = false,
 	href,
 	newTab = false,
-	className
+	className,
+	destructive = false
 }: {
 	value?: string;
 	icon?: IconType;
@@ -26,6 +27,7 @@ export function Button({
 	href?: string;
 	newTab?: boolean;
 	className?: string;
+	destructive?: boolean;
 }) {
 
 	const Comp = useMemo(() => href ? Link : GenericButton, [href]);
@@ -36,7 +38,7 @@ export function Button({
 		target={newTab ? '_blank' : '_self'}
 		disabled={disabled}
 		onClick={onClick}
-		className={clsx(styles.button, secondary ? styles.secondary : styles.primary, className)}>
+		className={clsx(styles.button, secondary ? styles.secondary : styles.primary, destructive && styles.destructive, className)}>
 		{Icon ? <Icon className={styles.icon} /> : null}
 		{value ? <span>{value}</span> : null}
 	</Comp>

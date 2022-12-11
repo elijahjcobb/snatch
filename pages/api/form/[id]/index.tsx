@@ -23,11 +23,14 @@ export default createEndpoint<APIResponseForm>({
 		if (form.project_id !== project.id) throw new APIError(404, "Form does not exist.");
 
 		const { error: deleteError } = await supabase
-			.from("form")
-			.delete()
-			.eq("id", formId);
+			.rpc("delete_form_with_children", {
+				f_id: form.id
+			})
 
-		if (deleteError) throw new APIError(404, "Could not delete form.");
+		if (deleteError) {
+			console.error(deleteError);
+			throw new APIError(404, "Could not delete form.");
+		}
 
 		res.json(convertToForm(form))
 

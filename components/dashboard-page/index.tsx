@@ -11,6 +11,7 @@ import { Button } from "../button";
 import { deleteCookie } from "cookies-next";
 import { ImSpinner } from "react-icons/im";
 import { ProjectPicker } from "../project-picker";
+import { DashboardProvider } from "../../helpers/front/dashboard-context";
 
 function DashboardLink({
 	href,
@@ -57,64 +58,66 @@ export function DashboardPage({
 		router.push("/sign-in");
 	}, [router]);
 
-	return <BasePage title={title}>
-		<div className={styles.page}>
-			<header className={styles.header}>
-				<Link href='/about' className={styles.title}>
-					<Icon size={32} />
-					<h1>snatch</h1>
-				</Link>
-				<nav className={styles.nav}>
-					<DashboardLink
-						href='/dashboard'
-						name="Dashboard"
-						icon={IoStorefront}
-					/>
-					<DashboardLink
-						href='/dashboard/forms'
-						name="Forms"
-						icon={IoRocket}
-					/>
-					<DashboardLink
-						href='/dashboard/responses'
-						name="Responses"
-						icon={IoReceipt}
-					/>
-					<DashboardLink
-						href='/dashboard/contacts'
-						name="Contacts"
-						icon={IoPersonCircle}
-					/>
-					<DashboardLink
-						href='/dashboard/settings'
-						name="Settings"
-						icon={IoSettings}
-					/>
-				</nav>
-				<ProjectPicker />
-				<div className={styles.buttons}>
-					<Button
-						secondary
-						value="Sign Out"
-						onClick={handleSignOut}
-					/>
-					<Button
-						href="/docs"
-						newTab
-						value="Docs"
-					/>
-				</div>
-			</header>
-			<div className={clsx(styles.childContainer)}>
-				<div style={{
-					maxWidth: useMaxWidth ? maxWidth : 'unset',
-					padding: useMaxWidth ? 'var(--sp-6) 0' : 0,
-				}} className={clsx(styles.child, className)}>
-					{children}
+	return <DashboardProvider>
+		<BasePage title={title}>
+			<div className={styles.page}>
+				<header className={styles.header}>
+					<Link href='/about' className={styles.title}>
+						<Icon size={32} />
+						<h1>snatch</h1>
+					</Link>
+					<nav className={styles.nav}>
+						<DashboardLink
+							href='/dashboard'
+							name="Dashboard"
+							icon={IoStorefront}
+						/>
+						<DashboardLink
+							href='/dashboard/forms'
+							name="Forms"
+							icon={IoRocket}
+						/>
+						<DashboardLink
+							href='/dashboard/responses'
+							name="Responses"
+							icon={IoReceipt}
+						/>
+						<DashboardLink
+							href='/dashboard/contacts'
+							name="Contacts"
+							icon={IoPersonCircle}
+						/>
+						<DashboardLink
+							href='/dashboard/settings'
+							name="Settings"
+							icon={IoSettings}
+						/>
+					</nav>
+					<ProjectPicker />
+					<div className={styles.buttons}>
+						<Button
+							secondary
+							value="Sign Out"
+							onClick={handleSignOut}
+						/>
+						<Button
+							href="/docs"
+							newTab
+							value="Docs"
+						/>
+					</div>
+				</header>
+				<div className={clsx(styles.childContainer)}>
+					<div style={{
+						maxWidth: useMaxWidth ? maxWidth : 'unset',
+						padding: useMaxWidth ? 'var(--sp-6) 0' : 0,
+					}} className={clsx(styles.child, className)}>
+						{children}
+					</div>
 				</div>
 			</div>
-		</div>
-	</BasePage>
+		</BasePage>
+	</DashboardProvider>
 }
 
 export function DashboardPageLoader() {
