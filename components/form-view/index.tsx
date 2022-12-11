@@ -32,13 +32,14 @@ export function FormView({
 
 	const handleDelete = useCallback(() => {
 		if (!form?.id) return;
+		setLoading(true);
 		fetcher<APIResponseForm>({
 			path: `/form/${form.id}`,
 			method: 'delete',
 			message: 'Deleting form...'
 		}).then(() => {
 			router.push("/dashboard/forms");
-		}).catch(console.error)
+		}).finally(() => setLoading(false));
 	}, [form, router]);
 
 	const handleSubmit = useCallback(() => {

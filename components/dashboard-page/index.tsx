@@ -11,7 +11,7 @@ import { Button } from "../button";
 import { deleteCookie } from "cookies-next";
 import { ImSpinner } from "react-icons/im";
 import { ProjectPicker } from "../project-picker";
-import { ProjectProvider } from "../../helpers/front/use-project";
+import { DashboardProvider } from "../../helpers/front/dashboard-context";
 
 function DashboardLink({
 	href,
@@ -58,7 +58,7 @@ export function DashboardPage({
 		router.push("/sign-in");
 	}, [router]);
 
-	return <ProjectProvider>
+	return <DashboardProvider>
 		<BasePage title={title}>
 			<div className={styles.page}>
 				<header className={styles.header}>
@@ -117,7 +117,7 @@ export function DashboardPage({
 				</div>
 			</div>
 		</BasePage>
-	</ProjectProvider>
+	</DashboardProvider>
 }
 
 export function DashboardPageLoader() {

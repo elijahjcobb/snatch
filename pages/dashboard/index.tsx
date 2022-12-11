@@ -4,6 +4,7 @@ import { StatCard } from "../../components/stat-card";
 import { useFetch } from "../../helpers/front/fetch";
 import { APIResponseDashboard } from "../api/project/dashboard";
 import styles from "../../styles/dashboard.module.css";
+import { SkeletonContainer } from "../../components/skeleton";
 
 export default function Page() {
 
@@ -13,22 +14,24 @@ export default function Page() {
 	});
 
 	return <DashboardPage useMaxWidth title='dashboard'>
-		{data ? <div>
-			<h2>Dashboard</h2>
-			<div className={styles.cards}>
+		<h2>Dashboard</h2>
+		<div className={styles.cards}>
+			<SkeletonContainer height={283} hasLoaded={Boolean(data)}>
 				<StatCard
 					name="Entries"
 					icon={IoReceipt}
-					count={data.entries}
+					count={data?.entries ?? 0}
 					href='/dashboard/responses'
 				/>
+			</SkeletonContainer>
+			<SkeletonContainer height={283} hasLoaded={Boolean(data)}>
 				<StatCard
 					name="Contacts"
 					icon={IoPerson}
-					count={data.contacts}
+					count={data?.contacts ?? 0}
 					href='/dashboard/contacts'
 				/>
-			</div>
-		</div> : <DashboardPageLoader />}
+			</SkeletonContainer>
+		</div>
 	</DashboardPage>
 }

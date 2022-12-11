@@ -171,6 +171,14 @@ export interface Database {
       }
     }
     Functions: {
+      delete_form_with_children: {
+        Args: { f_id: string }
+        Returns: undefined
+      }
+      delete_project_with_children: {
+        Args: { p_id: string }
+        Returns: undefined
+      }
       install_available_extensions_and_test: {
         Args: Record<PropertyKey, never>
         Returns: boolean

@@ -5,6 +5,7 @@
   cursor: pointer;
   background: var(--acc-1);
   overflow: hidden;
+  flex-grow: 1;
   border: solid 1px var(--acc-2);
 }
 

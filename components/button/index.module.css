@@ -7,6 +7,7 @@
   padding: var(--sp) var(--sp-2);
   border-radius: var(--sp);
   cursor: pointer;
+  flex-shrink: 0;
   color: var(--bg);
   transition: var(--trans);
   font-family: var(--font-grotesk);
