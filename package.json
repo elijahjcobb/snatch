@@ -12,6 +12,9 @@
   "dependencies": {
     "@element-ts/krypton": "^0.3.3",
     "@elijahjcobb/typr": "^2.0.1",
+    "@mdx-js/loader": "^2.1.5",
+    "@mdx-js/react": "^2.1.5",
+    "@next/mdx": "^13.0.6",
     "@supabase/supabase-js": "^2.1.1",
     "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "18.11.10",
@@ -33,6 +36,7 @@
     "react-error-boundary": "^3.1.4",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.7.1",
-    "typescript": "4.9.3"
+    "typescript": "4.9.3",
+    "webpack": "^5.75.0"
   }
 }
