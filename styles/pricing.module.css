@@ -1,0 +1,148 @@
+.container {
+  width: 100%;
+  max-width: 1080px;
+  margin: auto;
+  padding: var(--sp-6) 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-6);
+}
+
+.title {
+  font-size: 3rem;
+  text-align: center;
+  max-width: 960px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.subtitleContainer {
+  display: flex;
+  gap: var(--sp-6);
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.checkMarkSubtitle {
+  display: flex;
+  align-items: center;
+  gap: var(--sp);
+}
+
+.checkMarkSubtitle span {
+  font-weight: 500;
+  font-size: 1.125rem;
+}
+
+.checkMarkSubtitle svg {
+  width: 32px;
+  height: 32px;
+  color: var(--blue);
+}
+
+.pricingCards {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--sp-6);
+}
+
+.pricingCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp);
+  background-color: var(--acc-1);
+  border: solid 1px var(--acc-2);
+  border-radius: var(--sp-2);
+  padding: var(--sp-4);
+}
+
+.name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.price {
+  font-size: 4rem;
+  font-weight: bold;
+  margin-top: var(--sp);
+  font-family: var(--font-grotesk);
+}
+
+.priceDescription {
+  color: var(--sec);
+}
+
+.cta {
+  margin-top: var(--sp-3);
+  width: 100%;
+}
+
+.line {
+  width: 80%;
+  height: 2px;
+  background: var(--acc-2);
+  margin: var(--sp-3) 0;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.lineItem {
+  font-size: 1.125rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  gap: var(--sp2);
+}
+
+.info {
+  color: var(--sec);
+  width: var(--sp-3);
+  height: var(--sp-3);
+  cursor: pointer;
+  transition: var(--trans);
+}
+
+.info span {
+  color: inherit;
+}
+
+.info:hover {
+  color: var(--fg);
+}
+
+.tooltip {
+  position: absolute;
+  background: var(--sec);
+  z-index: 4;
+  max-width: 240px;
+  transform: scale(0);
+  opacity: 0.5;
+  background: var(--fg);
+  color: var(--bg);
+  padding: var(--sp);
+  border-radius: 8px;
+  transition: var(--trans-slow);
+  font-family: var(--font-grotesk);
+  font-size: 1rem;
+  box-shadow: 0 0 var(--sp-4) var(--sec);
+}
+
+.showTooltip {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.na {
+  text-decoration: line-through;
+  color: var(--sec);
+}

@@ -15,6 +15,7 @@ export function MarketingPage({
 	hideHeader?: boolean;
 	hideFooter?: boolean;
 	title?: string;
+
 }) {
 
 	return <BasePage title={title}>
