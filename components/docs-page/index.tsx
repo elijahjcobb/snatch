@@ -20,15 +20,19 @@ type Sections = Content;
 
 const SECTIONS: Sections = [
 	{
+		name: "Get Started",
+		href: "get-started"
+	},
+	{
 		section: "Dashboard",
 		content: [
 			{
 				name: "Invite Members",
-				href: ""
+				href: "dashboard/invite-members"
 			},
 			{
 				name: "Upgrade Project",
-				href: ""
+				href: "dashboard/upgrade-project"
 			},
 		]
 	},
@@ -37,7 +41,7 @@ const SECTIONS: Sections = [
 		content: [
 			{
 				name: "Create a Form",
-				href: ""
+				href: "forms/create-a-form"
 			},
 			{
 				section: "Attributes",
@@ -45,19 +49,19 @@ const SECTIONS: Sections = [
 
 					{
 						name: "Keys",
-						href: ""
+						href: "forms/attributes/keys"
 					},
 					{
 						name: "Destination",
-						href: ""
+						href: "forms/attributes/destination"
 					},
 					{
 						name: "Domains",
-						href: ""
+						href: "forms/attributes/domains"
 					},
 					{
 						name: "Email Notifications",
-						href: ""
+						href: "forms/attributes/email-notifications"
 					},
 				]
 			},
@@ -68,11 +72,11 @@ const SECTIONS: Sections = [
 		content: [
 			{
 				name: "View",
-				href: '',
+				href: 'responses/view',
 			},
 			{
 				name: "Export",
-				href: '',
+				href: 'responses/export',
 			},
 		]
 	},
@@ -81,18 +85,18 @@ const SECTIONS: Sections = [
 		content: [
 			{
 				name: "Set up HTML Form",
-				href: ""
+				href: "submission/set-up-html-form"
 			},
 			{
 				name: "Testing Submission",
-				href: ""
+				href: "submission/testing"
 			},
 		]
 	}
 ]
 
 function LinkComponent({ href, value }: { href: string, value: string }) {
-	return <Link className={styles.link} href={`/docs${href}`}>
+	return <Link className={styles.link} href={`/docs/${href}`}>
 		{value}
 	</Link>
 }
