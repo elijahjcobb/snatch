@@ -1,0 +1,177 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page section {
+  width: 100%;
+  margin: var(--sp-16);
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  scroll-margin-top: calc(var(--header) + var(--sp-16));
+}
+
+.page section > h2,
+.page section > p {
+  text-align: center;
+}
+
+.page section > h2 {
+  font-size: 2rem;
+}
+
+.page section > p {
+  font-size: 1.125rem;
+  font-weight: lighter;
+}
+
+.heroContainer {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 var(--sp-2) var(--acc-2);
+  height: calc(100vh - var(--header));
+}
+
+.hero {
+  width: 100%;
+  max-width: 1080px;
+  align-items: center;
+}
+
+.hero > * {
+  z-index: 2;
+}
+
+.blobContainer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  animation: blobber 10s ease-in-out infinite;
+}
+
+@keyframes blobber {
+  from {
+    transform: rotate(0) scale(1.25);
+  }
+  25% {
+    transform: rotate(180deg) scale(1);
+  }
+  50% {
+    transform: rotate(240deg) scale(0.5);
+  }
+  to {
+    transform: rotate(360deg) scale(1.25);
+  }
+}
+
+.blob {
+  background: linear-gradient(var(--blue), var(--cyan));
+  width: 40vh;
+  height: 40vh;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  filter: blur(30vh);
+  z-index: 1;
+}
+
+.leftBlob {
+  left: 10vw;
+}
+
+.rightBlob {
+  right: 10vw;
+}
+
+.dark {
+  background: var(--acc-1);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hFlex {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.heroCTA {
+  padding: var(--sp-6) 0;
+  width: 60%;
+}
+
+.heroCTA > * {
+  flex-grow: 1;
+}
+
+.hero h1 {
+  font-family: var(--font);
+  font-weight: bold;
+  font-size: 3rem;
+  text-align: center;
+  max-width: 480px;
+}
+
+.hero p {
+  text-align: center;
+  font-weight: lighter;
+  font-size: 1.125rem;
+  margin-bottom: var(--sp-4);
+}
+
+.colorfulHeader {
+  font-size: 7rem !important;
+  background: -webkit-linear-gradient(var(--blue), #4fd1c5);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-top: var(--sp-2);
+}
+
+.arrow {
+  position: absolute;
+  bottom: var(--sp-2);
+  background: none;
+  outline: none;
+  border: none;
+  animation: jump 4s ease-in-out infinite;
+  cursor: pointer;
+  padding: var(--sp-2);
+}
+
+.arrow svg {
+  width: var(--sp-6);
+  height: var(--sp-6);
+  color: var(--fg);
+  transition: var(--trans);
+}
+
+.arrow:hover svg {
+  color: var(--blue);
+  transform: scale(1.5);
+}
+
+@keyframes jump {
+  from {
+    transform: translateY(0) scale(1);
+  }
+  40% {
+    transform: translateY(-16px) scale(1.25);
+  }
+  50% {
+    transform: translateY(-16px) scale(1.25);
+  }
+  to {
+    transform: translateY(0) scale(1);
+  }
+}

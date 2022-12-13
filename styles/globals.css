@@ -6,6 +6,7 @@
   --bg-rgb: 255, 255, 255;
   --fg-rgb: 0, 0, 0;
   --blue: #1e90ff;
+  --cyan: #4fd1c5;
   --red: red;
   --orange: #d17a22;
   --pri: var(--blue);
@@ -20,6 +21,9 @@
   --sp-6: 48px;
   --sp-7: 56px;
   --sp-8: 64px;
+  --sp-16: 128px;
+  --sp-24: 192px;
+  --sp-32: 256px;
   --sp2: 4px;
   --sp4: 2px;
   --acc-1: #fafafa;
@@ -59,6 +63,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 html {
