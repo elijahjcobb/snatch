@@ -14,7 +14,7 @@ export default function Page() {
 				</div>
 				<section className={styles.hero}>
 					<div className={styles.heroHeader}>
-						<h1>Your new backend solution for forms</h1>
+						<h1>Your new form backend solution</h1>
 						<h1 className={styles.colorfulHeader}>snatch</h1>
 					</div>
 					<div className={clsx(styles.hFlex, styles.heroCTA)}>
