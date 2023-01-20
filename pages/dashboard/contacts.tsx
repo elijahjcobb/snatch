@@ -1,8 +1,8 @@
-import { ContactRow } from "../../components/contact-row";
-import { DashboardPage, DashboardPageLoader } from "../../components/dashboard-page";
-import { useFetch } from "../../helpers/front/fetch";
-import type { APIResponseContacts } from "../api/contacts";
-import styles from "../../styles/contacts-page.module.css";
+import { ContactRow } from "#components/contact-row";
+import { DashboardPage, DashboardPageLoader } from "#components/dashboard-page";
+import { useFetch } from "#lib/front/fetch";
+import type { APIResponseContacts } from "#api/contacts";
+import styles from "#styles/contacts-page.module.css";
 
 export default function Page() {
 

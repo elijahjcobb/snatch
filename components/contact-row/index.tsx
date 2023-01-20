@@ -1,11 +1,11 @@
-import type { APIResponseContact } from "../../pages/api/contacts";
 import styles from "./index.module.css";
 import clsx from "clsx";
 import { useCallback, useMemo } from "react";
-import { truncate } from "../../helpers/front/truncate";
-import { formatRelativeDate } from "../../helpers/date-formatter";
 import { Copier } from "../copier";
 import { IoMail, IoCall } from "react-icons/io5";
+import { APIResponseContact } from "#api/contacts";
+import { formatRelativeDate } from "#lib/date-formatter";
+import { truncate } from "#lib/front/truncate";
 
 export function ContactRow({
 	contact,

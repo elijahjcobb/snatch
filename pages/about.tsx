@@ -1,7 +1,7 @@
 import clsx from "clsx";
-import { Button } from "../components/button";
-import { MarketingPage } from "../components/marketing-page";
-import styles from "../styles/about-page.module.css";
+import { Button } from "#components/button";
+import { MarketingPage } from "#components/marketing-page";
+import styles from "#styles/about-page.module.css";
 import { RxChevronDown } from "react-icons/rx";
 
 export default function Page() {

@@ -1,13 +1,10 @@
 import { T } from "@elijahjcobb/typr";
-import { supabase } from "../../../db";
-import { APIError } from "../../../helpers/api-error";
-import {
-  APIResponseProject,
-  convertToProject,
-} from "../../../helpers/api/coding";
-import { createEndpoint } from "../../../helpers/api/create-endpoint";
-import { verifyProject } from "../../../helpers/api/token";
-import { verifyBody } from "../../../helpers/api/type-check";
+import { supabase } from "#db";
+import { APIError } from "#lib/api-error";
+import { APIResponseProject, convertToProject } from "#lib/api/coding";
+import { createEndpoint } from "#lib/api/create-endpoint";
+import { verifyProject } from "#lib/api/token";
+import { verifyBody } from "#lib/api/type-check";
 
 export default createEndpoint<APIResponseProject>({
   GET: async ({ req, res }) => {

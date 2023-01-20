@@ -1,12 +1,12 @@
 import { T } from "@elijahjcobb/typr";
-import { createEndpoint } from "../../../helpers/api/create-endpoint";
-import { sendUserPostVerifyEmail } from "../../../helpers/api/email";
-import { otpVerify } from "../../../helpers/api/otp";
-import { tokenSign, verifyUser } from "../../../helpers/api/token";
-import { verifyBody } from "../../../helpers/api/type-check";
-import { supabase } from "../../../db";
-import { APIError } from "../../../helpers/api-error";
-import { setCookie30Day } from "../../../helpers/cookie";
+import { createEndpoint } from "#lib/api/create-endpoint";
+import { sendUserPostVerifyEmail } from "#lib/api/email";
+import { otpVerify } from "#lib/api/otp";
+import { tokenSign, verifyUser } from "#lib/api/token";
+import { verifyBody } from "#lib/api/type-check";
+import { supabase } from "#db";
+import { APIError } from "#lib/api-error";
+import { setCookie30Day } from "#lib/cookie";
 
 export interface APIResponseUserVerify {
   projectToken?: string;

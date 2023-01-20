@@ -1,12 +1,12 @@
-import { DashboardPage, DashboardPageLoader } from "../../../components/dashboard-page";
-import { useFetch } from "../../../helpers/front/fetch";
-import type { APIResponseForm } from "../../../helpers/api/coding";
-import { FormView } from "../../../components/form-view";
+import { DashboardPage, DashboardPageLoader } from "#components/dashboard-page";
+import { useFetch } from "#lib/front/fetch";
+import type { APIResponseForm } from "#lib/api/coding";
+import { FormView } from "#components/form-view";
 import { useEffect, useMemo, useState } from "react";
-import styles from "../../../styles/form-view.module.css";
-import { uniqueFormURL } from "../../../helpers/front/form-url";
-import { Copier } from "../../../components/copier";
-import { Button } from "../../../components/button";
+import styles from "#styles/form-view.module.css";
+import { uniqueFormURL } from "#lib/front/form-url";
+import { Copier } from "#components/copier";
+import { Button } from "#components/button";
 
 
 export default function Page() {

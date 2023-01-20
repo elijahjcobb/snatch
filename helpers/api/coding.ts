@@ -1,4 +1,4 @@
-import { Json } from "../../db/types";
+import { Json } from "#db/types";
 
 export interface APIResponseForm {
   id: string;

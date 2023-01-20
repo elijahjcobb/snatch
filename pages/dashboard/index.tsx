@@ -1,10 +1,10 @@
 import { IoPerson, IoReceipt } from "react-icons/io5";
-import { DashboardPage, DashboardPageLoader } from "../../components/dashboard-page";
-import { StatCard } from "../../components/stat-card";
-import { useFetch } from "../../helpers/front/fetch";
-import { APIResponseDashboard } from "../api/project/dashboard";
-import styles from "../../styles/dashboard.module.css";
-import { SkeletonContainer } from "../../components/skeleton";
+import { DashboardPage } from "#components/dashboard-page";
+import { StatCard } from "#components/stat-card";
+import { useFetch } from "#lib/front/fetch";
+import { APIResponseDashboard } from "#api/project/dashboard";
+import styles from "#styles/dashboard.module.css";
+import { SkeletonContainer } from "#components/skeleton";
 
 export default function Page() {
 

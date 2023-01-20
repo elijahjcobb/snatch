@@ -1,9 +1,9 @@
 import { T } from "@elijahjcobb/typr";
-import { createEndpoint } from "../../../helpers/api/create-endpoint";
-import { verifyUser } from "../../../helpers/api/token";
-import { verifyBody } from "../../../helpers/api/type-check";
-import { supabase } from "../../../db";
-import { APIError } from "../../../helpers/api-error";
+import { createEndpoint } from "#lib/api/create-endpoint";
+import { verifyUser } from "#lib/api/token";
+import { verifyBody } from "#lib/api/type-check";
+import { supabase } from "#db";
+import { APIError } from "#lib/api-error";
 
 export interface APIResponseUser {
 	id: string;

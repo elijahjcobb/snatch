@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { APIResponseForm } from "../../helpers/api/coding";
+import type { APIResponseForm } from "#lib/api/coding";
 import styles from "./index.module.css";
 import { IoOpenOutline } from "react-icons/io5";
 

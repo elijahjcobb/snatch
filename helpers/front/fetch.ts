@@ -1,9 +1,9 @@
 import { getCookie } from "cookies-next";
 import { useState, useEffect } from "react";
-import { toast } from "../../components/toast";
-import { APIError } from "../api-error";
-import type { TokenType } from "../api/token";
-import { HOST } from "../constants";
+import { toast } from "#components/toast";
+import { APIError } from "#lib/api-error";
+import type { TokenType } from "#lib/api/token";
+import { HOST } from "#lib/constants";
 
 export interface FetcherConfig {
   path: string;

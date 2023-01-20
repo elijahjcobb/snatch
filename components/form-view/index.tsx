@@ -1,13 +1,13 @@
 import { useCallback, useState } from "react";
-import { APIResponseForm } from "../../helpers/api/coding";
+import { APIResponseForm } from "#lib/api/coding";
 import { Field } from "../field";
 import styles from "./index.module.css";
 import { IoPencil, IoLink, IoEarth, IoKey } from "react-icons/io5";
 import { Button } from "../button";
 import { IoAdd, IoTrash, IoSave } from "react-icons/io5";
-import { fetcher } from "../../helpers/front/fetch";
+import { fetcher } from "#lib/front/fetch";
 import { useRouter } from "next/router";
-import { HOST } from "../../helpers/constants";
+import { HOST } from "#lib/constants";
 import { Toggle } from "../toggle";
 import { IoPeople, IoPerson } from "react-icons/io5";
 

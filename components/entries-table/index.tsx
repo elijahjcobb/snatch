@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useMemo } from "react";
-import { APIResponseEntry, APIResponseForm } from "../../helpers/api/coding";
-import { truncate } from "../../helpers/front/truncate";
+import { APIResponseEntry, APIResponseForm } from "#lib/api/coding";
+import { truncate } from "#lib/front/truncate";
 import styles from "./index.module.css";
 
 export function EntriesTable({

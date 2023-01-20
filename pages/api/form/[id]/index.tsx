@@ -1,11 +1,11 @@
 import { T } from "@elijahjcobb/typr";
-import { createEndpoint } from "../../../../helpers/api/create-endpoint";
-import { verifyProject } from "../../../../helpers/api/token";
-import { verifyBody } from "../../../../helpers/api/type-check";
-import { supabase } from "../../../../db";
-import { APIError } from "../../../../helpers/api-error";
-import { APIResponseForm, convertToForm } from "../../../../helpers/api/coding";
-import { assertArrayFilled } from "../../../../helpers/assert-filled";
+import { createEndpoint } from "#lib/api/create-endpoint";
+import { verifyProject } from "#lib/api/token";
+import { verifyBody } from "#lib/api/type-check";
+import { supabase } from "#db";
+import { APIError } from "#lib/api-error";
+import { APIResponseForm, convertToForm } from "#lib/api/coding";
+import { assertArrayFilled } from "#lib/assert-filled";
 
 export default createEndpoint<APIResponseForm>({
 	DELETE: async ({ req, res }) => {

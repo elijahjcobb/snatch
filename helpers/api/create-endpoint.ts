@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { APIError } from "../api-error";
+import { APIError } from "#lib/api-error";
 
 export type MethodType = "GET" | "PUT" | "POST" | "DELETE";
 

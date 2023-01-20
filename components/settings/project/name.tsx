@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import { RxLetterCaseCapitalize } from "react-icons/rx";
-import { APIResponseProject } from "../../../helpers/api/coding";
-import { useDashboardContext } from "../../../helpers/front/dashboard-context";
-import { fetcher, useFetch } from "../../../helpers/front/fetch";
-import { Button } from "../../button";
-import { Field } from "../../field";
-import { SkeletonContainer } from "../../skeleton";
+import { APIResponseProject } from "#lib/api/coding";
+import { useDashboardContext } from "#lib/front/dashboard-context";
+import { fetcher, useFetch } from "#lib/front/fetch";
+import { Button } from "#components/button";
+import { Field } from "#components/field";
+import { SkeletonContainer } from "#components/skeleton";
 import styles from "../index.module.css";
 
 export function SettingsProjectName() {

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { isSignedIn } from '../../helpers/front/user';
+import { isSignedIn } from '#lib/front/user';
 import { Button } from '../button';
 import { Icon } from '../icon';
 import styles from './index.module.css';

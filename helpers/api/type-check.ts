@@ -1,6 +1,6 @@
 import { TType } from "@elijahjcobb/typr";
 import { NextApiRequest } from "next";
-import { APIError } from "../api-error";
+import { APIError } from "#lib/api-error";
 
 export function verifyBody<T>(req: NextApiRequest, type: TType<T>): T {
   let b = req.body;

@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
-import { fetcher, useFetch } from "../../../helpers/front/fetch";
-import { Button } from "../../button";
-import { Field } from "../../field";
-import { SkeletonContainer } from "../../skeleton";
+import { fetcher, useFetch } from "#lib/front/fetch";
+import { Button } from "#components/button";
+import { Field } from "#components/field";
+import { SkeletonContainer } from "#components/skeleton";
 import styles from "../index.module.css";
 import { IoPerson } from "react-icons/io5";
-import { APIResponseUser } from "../../../pages/api/user";
+import { APIResponseUser } from "#api/user";
 
 export function SettingsUserName() {
 

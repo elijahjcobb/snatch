@@ -1,6 +1,6 @@
 import { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from "react";
-import { APIResponseUser } from "../../pages/api/user";
-import { APIResponseProject } from "../api/coding";
+import { APIResponseUser } from "#pages/api/user";
+import { APIResponseProject } from "#lib/api/coding";
 
 interface DashboardContext {
 	project: APIResponseProject | undefined;

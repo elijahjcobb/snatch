@@ -1,9 +1,9 @@
-import { DashboardPage, DashboardPageLoader } from "../../../components/dashboard-page";
-import { useFetch } from "../../../helpers/front/fetch";
-import type { APIResponseFormEntries } from "../../../helpers/api/coding";
-import styles from "../../../styles/responses-view.module.css";
-import { Button } from "../../../components/button";
-import { EntriesTable } from "../../../components/entries-table";
+import { DashboardPage, DashboardPageLoader } from "#components/dashboard-page";
+import { useFetch } from "#lib/front/fetch";
+import type { APIResponseFormEntries } from "#lib/api/coding";
+import styles from "#styles/responses-view.module.css";
+import { Button } from "#components/button";
+import { EntriesTable } from "#components/entries-table";
 
 export default function Page() {
 

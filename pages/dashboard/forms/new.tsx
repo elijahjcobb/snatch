@@ -1,5 +1,5 @@
-import { DashboardPage } from "../../../components/dashboard-page";
-import { FormView } from "../../../components/form-view";
+import { DashboardPage } from "#components/dashboard-page";
+import { FormView } from "#components/form-view";
 
 export default function Page() {
 

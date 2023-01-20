@@ -1,8 +1,8 @@
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
-import { APIResponseProject } from "../../../helpers/api/coding";
-import { fetcher } from "../../../helpers/front/fetch";
-import { Button } from "../../button";
+import { APIResponseProject } from "#lib/api/coding";
+import { fetcher } from "#lib/front/fetch";
+import { Button } from "#components/button";
 
 export function SettingsProjectDelete() {
 

@@ -1,11 +1,11 @@
 import { T } from "@elijahjcobb/typr";
-import { APIError } from "../../../../helpers/api-error";
-import { createEndpoint } from "../../../../helpers/api/create-endpoint";
-import { sendUserResetEmailPost } from "../../../../helpers/api/email";
-import { otpVerify } from "../../../../helpers/api/otp";
-import { verifyBody } from "../../../../helpers/api/type-check";
-import { supabase } from "../../../../db";
-import { createPassword } from "../../../../helpers/api/password";
+import { APIError } from "#lib/api-error";
+import { createEndpoint } from "#lib/api/create-endpoint";
+import { sendUserResetEmailPost } from "#lib/api/email";
+import { otpVerify } from "#lib/api/otp";
+import { verifyBody } from "#lib/api/type-check";
+import { supabase } from "#db";
+import { createPassword } from "#lib/api/password";
 
 export default createEndpoint({
 	POST: async ({ req, res }) => {

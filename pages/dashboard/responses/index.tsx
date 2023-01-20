@@ -1,8 +1,8 @@
-import { DashboardPage, DashboardPageLoader } from "../../../components/dashboard-page";
-import { FormRow } from "../../../components/form-row";
-import { useFetch } from "../../../helpers/front/fetch";
-import type { APIResponseForms } from "../../api/form/all";
-import styles from "../../../styles/forms-page.module.css";
+import { DashboardPage, DashboardPageLoader } from "#components/dashboard-page";
+import { FormRow } from "#components/form-row";
+import { useFetch } from "#lib/front/fetch";
+import type { APIResponseForms } from "#api/form/all";
+import styles from "#styles/forms-page.module.css";
 
 export default function Page() {
 

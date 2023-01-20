@@ -1,10 +1,10 @@
 import { T } from "@elijahjcobb/typr";
-import { APIError } from "../../../../helpers/api-error";
-import { createEndpoint } from "../../../../helpers/api/create-endpoint";
-import { sendUserResetEmail } from "../../../../helpers/api/email";
-import { otpGenerate } from "../../../../helpers/api/otp";
-import { verifyBody } from "../../../../helpers/api/type-check";
-import { supabase } from "../../../../db";
+import { APIError } from "#lib/api-error";
+import { createEndpoint } from "#lib/api/create-endpoint";
+import { sendUserResetEmail } from "#lib/api/email";
+import { otpGenerate } from "#lib/api/otp";
+import { verifyBody } from "#lib/api/type-check";
+import { supabase } from "#db";
 
 export interface APIResponseUser {
 	id: string;

@@ -3,13 +3,13 @@ import { useRouter } from "next/router";
 import { useCallback } from "react";
 import { IconType } from "react-icons";
 import { BsChevronRight } from "react-icons/bs";
-import { Button } from "../../components/button";
-import { DashboardPageLoader } from "../../components/dashboard-page";
-import { MarketingPage } from "../../components/marketing-page";
-import { setCookie30Day } from "../../helpers/cookie";
-import { useFetch } from "../../helpers/front/fetch";
-import styles from "../../styles/projects.module.css";
-import { APIResponseUserProject, APIResponseUserProjects } from "../api/user/projects";
+import { Button } from "#components/button";
+import { DashboardPageLoader } from "#components/dashboard-page";
+import { MarketingPage } from "#components/marketing-page";
+import { setCookie30Day } from "#lib/cookie";
+import { useFetch } from "#lib/front/fetch";
+import styles from "#styles/projects.module.css";
+import { APIResponseUserProject, APIResponseUserProjects } from "#api/user/projects";
 
 export default function ProjectsPage() {
 

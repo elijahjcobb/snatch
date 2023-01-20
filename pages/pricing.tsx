@@ -1,9 +1,9 @@
 import clsx from "clsx";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { IoCheckmark, IoInformationCircle } from "react-icons/io5";
-import { Button } from "../components/button";
-import { MarketingPage } from "../components/marketing-page";
-import styles from "../styles/pricing.module.css";
+import { Button } from "#components/button";
+import { MarketingPage } from "#components/marketing-page";
+import styles from "#styles/pricing.module.css";
 
 type AccountType = 'free' | 'pro' | 'business';
 type LineItems = Record<string, {

@@ -5,8 +5,8 @@ import {
   verify,
 } from "jsonwebtoken";
 import { NextApiRequest } from "next";
-import { supabase } from "../../db";
-import { APIError } from "../api-error";
+import { supabase } from "#db";
+import { APIError } from "#lib/api-error";
 
 export type TokenType = "user" | "project";
 export interface TokenData {
