@@ -54,23 +54,68 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
 
 	const fetchScopes = useCallback(() => {
 		(async () => {
+			console.info("Sync Service: FETCH", new Date().toLocaleTimeString())
 			const user = await fetchUser();
 			const project = await fetchProject();
 			setUser(user);
 			setProject(project);
 		})().catch(error => {
-			console.error(error);
+			console.error('Sync Service: ERROR - ', error);
 		})
 	}, []);
 
 	useEffect(() => {
-		fetchScopes();
-		if (interval.current) clearInterval(interval.current);
+		const visibilityChanged = () => {
+			const isVisible = document.visibilityState === 'visible';
+			if (isVisible) fetchScopes();
+			else if (interval.current) clearInterval(interval.current);
+		}
+
+		document.addEventListener('visibilitychange', visibilityChanged);
+		return () => document.removeEventListener('visibilitychange', visibilityChanged);
+	}, [fetchScopes]);
+
+	const startInterval = useCallback(() => {
+		console.info("Starting Sync Service", new Date().toLocaleTimeString())
 		interval.current = setInterval(() => {
 			fetchScopes();
 		}, 10000);
-		return () => { if (interval.current) clearInterval(interval.current) }
 	}, [fetchScopes]);
+
+	const killInterval = useCallback(() => {
+		console.info("Killing Sync Service", new Date().toLocaleTimeString())
+		if (interval.current) clearInterval(interval.current);
+	}, [])
+
+	useEffect(() => {
+
+		// fetch on load
+		fetchScopes();
+
+		// clear on load
+		killInterval();
+
+		// start interval 
+		startInterval();
+
+		// handle visibility change
+		const visibilityChanged = () => {
+			const isVisible = document.visibilityState === 'visible';
+			if (isVisible) {
+				startInterval();
+			} else {
+				killInterval();
+			}
+		}
+
+		// add listener
+		document.addEventListener('visibilitychange', visibilityChanged);
+
+		return () => {
+			killInterval();
+			document.removeEventListener('visibilitychange', visibilityChanged);
+		}
+	}, [fetchScopes, startInterval, killInterval]);
 
 	useEffect(() => {
 		if (!user) return;
