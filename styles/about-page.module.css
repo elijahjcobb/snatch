@@ -7,17 +7,24 @@
 .page section {
   width: 100%;
   margin: var(--sp-16);
-  max-width: 720px;
+  max-width: 1080px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--sp-4);
+  scroll-margin-top: calc(var(--header) + var(--sp-16));
+}
+
+.page section > div {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--sp-2);
-  scroll-margin-top: calc(var(--header) + var(--sp-16));
 }
 
 .page section > h2,
 .page section > p {
-  text-align: center;
+  text-align: left;
 }
 
 .page section > h2 {
@@ -41,9 +48,18 @@
 }
 
 .hero {
-  width: 100%;
   max-width: 1080px;
+  flex-grow: 2;
   align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.try {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
 }
 
 .hero > * {
@@ -174,4 +190,50 @@
   to {
     transform: translateY(0) scale(1);
   }
+}
+
+.form {
+  display: flex;
+  width: 30vw;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  background: var(--bg);
+  z-index: 8;
+  border: solid 1px var(--acc-2);
+  box-shadow: 0 0 16px var(--acc-3);
+  padding: var(--sp-2);
+  border-radius: var(--sp-2);
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.form input {
+  margin: 4px 0;
+  padding: 4px 8px;
+  font-family: var(--font-mono);
+  border: solid 1px var(--acc-3);
+  border-radius: var(--sp2);
+  width: 100%;
+  font-size: 1.125rem;
+}
+
+.form div {
+  width: 100%;
+}
+
+.form label {
+  font-family: var(--font-grotesk);
+}
+
+.submit {
+  background: var(--acc-2);
+  color: var(--acc-5);
+  padding: 8px;
+  font-family: var(--font-grotesk);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.submit:hover {
+  color: var(--fg);
 }

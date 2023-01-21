@@ -16,6 +16,9 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+  images: {
+    domains: ["via.placeholder.com"],
+  },
 };
 
 module.exports = withMDX(nextConfig);
