@@ -77,6 +77,7 @@ export interface Database {
           notify_admin: boolean
           notify_responder: boolean
           project_id: string
+          unbranded: boolean
         }
         Insert: {
           created_at?: string
@@ -88,6 +89,7 @@ export interface Database {
           notify_admin?: boolean
           notify_responder?: boolean
           project_id: string
+          unbranded?: boolean
         }
         Update: {
           created_at?: string
@@ -99,6 +101,7 @@ export interface Database {
           notify_admin?: boolean
           notify_responder?: boolean
           project_id?: string
+          unbranded?: boolean
         }
       }
       member: {

@@ -2,6 +2,7 @@ import { createEndpoint } from "lib/api/create-endpoint";
 import { supabase } from "#db";
 import { HOST } from "lib/constants";
 import { sendFormSubmittedTeam, sendFormSubmittedUser } from "lib/api/email";
+import { fetchPlan } from "#lib/plan";
 
 const FORM_SUBMISSION_ERROR_URL = `${HOST}/submission/error`;
 const FORM_SUBMISSION_SUCCESS_URL = `${HOST}/submission/success`;
@@ -91,8 +92,19 @@ export default createEndpoint({
       return;
     }
 
-    const nextUrl = form.destination ?? FORM_SUBMISSION_SUCCESS_URL;
-    res.redirect(nextUrl);
+    if (form.destination) {
+      if (form.unbranded) {
+        res.redirect(form.destination);
+      } else {
+        res.redirect(
+          `${FORM_SUBMISSION_SUCCESS_URL}?next=${encodeURIComponent(
+            form.destination
+          )}`
+        );
+      }
+    } else {
+      res.redirect(FORM_SUBMISSION_SUCCESS_URL);
+    }
 
     if (form.notify_responder && email) sendFormSubmittedUser(email, form);
     if (form.notify_admin) {

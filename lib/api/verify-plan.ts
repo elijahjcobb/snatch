@@ -9,6 +9,7 @@ export async function verifyPlanForFormActions(
     name: string;
     notifyAdmin: boolean;
     notifyResponder: boolean;
+    unbranded: boolean;
     domains: string[];
     keys: string[];
     destination: string;
@@ -30,6 +31,8 @@ export async function verifyPlanForFormActions(
     throw new APIPlanError("a custom destination");
   if (body.notifyAdmin && !plan.adminNotifications)
     throw new APIPlanError("admin notifications");
+  if (body.unbranded && !plan.unbrandedSubmission)
+    throw new APIPlanError("unbranded submission");
   if (body.notifyResponder && !plan.responderNotifications)
     throw new APIPlanError("responder notifications");
   if (body.domains && !plan.domainVerification)

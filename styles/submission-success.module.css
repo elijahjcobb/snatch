@@ -1,0 +1,45 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: var(--sp-6);
+  position: relative;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.title h1 {
+  font-size: 3rem;
+}
+
+.footer {
+  position: absolute;
+  bottom: var(--sp-2);
+}
+
+.footer a {
+  color: var(--pri);
+}
+
+.button {
+  opacity: 0;
+}
+
+.show {
+  animation: fadeIn 500ms ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

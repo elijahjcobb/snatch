@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import { APIResponseForm } from "lib/api/coding";
 import { Field } from "../field";
 import styles from "./index.module.css";
-import { IoPencil, IoLink, IoEarth, IoKey } from "react-icons/io5";
+import { IoPencil, IoLink, IoEarth, IoKey, IoPlanet } from "react-icons/io5";
 import { Button } from "../button";
 import { IoAdd, IoTrash, IoSave } from "react-icons/io5";
 import { fetcher } from "lib/front/fetch";
@@ -28,6 +28,7 @@ export function FormView({
 	const [keys, setKeys] = useState(form?.keys.join(",") ?? "");
 	const [notifyAdmin, setNotifyAdmin] = useState(form?.notifyAdmin ?? false);
 	const [notifyResponder, setNotifyResponder] = useState(form?.notifyResponder ?? false);
+	const [unbranded, setUnbranded] = useState(form?.unbranded ?? false);
 	const [loading, setLoading] = useState(false);
 
 	const handleDelete = useCallback(() => {
@@ -47,7 +48,8 @@ export function FormView({
 
 		const body = {
 			notifyAdmin,
-			notifyResponder
+			notifyResponder,
+			unbranded
 		};
 
 		function addIfLengthValid(key: string, value: { length: number }): void {
@@ -78,7 +80,7 @@ export function FormView({
 				onFormChange(res);
 			} else router.push(`/dashboard/forms/${res.id}`);
 		}).catch(console.error).finally(() => setLoading(false))
-	}, [form, name, keys, destination, domains, onFormChange, router, notifyAdmin, notifyResponder]);
+	}, [form, name, keys, unbranded, destination, domains, onFormChange, router, notifyAdmin, notifyResponder]);
 
 	return <div className={styles.page}>
 		{title ? <h2>{title}</h2> : null}
@@ -116,6 +118,19 @@ export function FormView({
 				label='destination'
 				mono
 				placeholder={`${HOST}/submission/success`} />
+		</section>
+		<section>
+			<h3>Unbranded Experience</h3>
+			<p>Send your users directly to your custom destination and skip the snatch submission page altogether.</p>
+			<div className={styles.toggles}>
+				<Toggle
+					value={unbranded}
+					onChange={setUnbranded}
+					label='Unbranded Submission'
+					icon={IoPlanet}
+					disabled={loading}
+				/>
+			</div>
 		</section>
 		<section>
 			<h3>Domains</h3>

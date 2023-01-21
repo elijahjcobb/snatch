@@ -65,6 +65,7 @@ export default createEndpoint<APIResponseForm>({
 				name: T.optional(T.string()),
 				notifyAdmin: T.optional(T.boolean()),
 				notifyResponder: T.optional(T.boolean()),
+				unbranded: T.optional(T.boolean()),
 				domains: T.optional(T.array(T.string())),
 				keys: T.optional(T.array(T.string())),
 				destination: T.optional(T.regex.url()),
@@ -73,7 +74,6 @@ export default createEndpoint<APIResponseForm>({
 
 		const project = await verifyProject(req);
 
-		console.log(body);
 		await verifyPlanForFormActions(project, body, false);
 
 		const { data, error } = await supabase
@@ -92,9 +92,11 @@ export default createEndpoint<APIResponseForm>({
 			name,
 			notify_admin: body.notifyAdmin ?? false,
 			notify_responder: body.notifyResponder ?? false,
+			unbranded: body.unbranded ?? false,
 			domains: assertArrayFilled(body.domains ?? []),
 			keys: assertArrayFilled(body.keys ?? []),
 			destination: body.destination ?? null,
+
 		};
 
 		const { error: updateError } = await supabase

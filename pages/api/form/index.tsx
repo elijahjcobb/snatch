@@ -18,12 +18,13 @@ export default createEndpoint<APIResponseForm>({
 				name: T.string(),
 				notifyAdmin: T.optional(T.boolean()),
 				notifyResponder: T.optional(T.boolean()),
+				unbranded: T.optional(T.boolean()),
 				domains: T.optional(T.array(T.string())),
 				keys: T.optional(T.array(T.string())),
 				destination: T.optional(T.regex.url()),
 			})
 		);
-		const { name, notifyAdmin, notifyResponder, domains, keys, destination } = body;
+		const { name, notifyAdmin, notifyResponder, domains, keys, destination, unbranded } = body;
 
 		const project = await verifyProject(req);
 
@@ -39,6 +40,7 @@ export default createEndpoint<APIResponseForm>({
 				domains: assertArrayFilled(domains ?? []),
 				destination,
 				keys: assertArrayFilled(keys ?? []),
+				unbranded
 			})
 			.select()
 		if (error) throw error;
