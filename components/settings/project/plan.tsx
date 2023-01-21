@@ -2,7 +2,7 @@
 import styles from "../index.module.css";
 import Link from "next/link";
 import { Copier } from "#components/copier";
-import { useDashboardContext } from "lib/front/dashboard-context";
+import { useDashboardContext, useProject } from "lib/front/dashboard-context";
 import { Skeleton, SkeletonContainer } from "#components/skeleton";
 import project from "#api/project";
 import { APIResponseUser } from "#api/user";
@@ -11,13 +11,7 @@ import { APIResponseProject } from "lib/api/coding";
 
 export function SettingsProjectPlan() {
 
-	const [project] = useFetch<APIResponseProject>({
-		path: "/project",
-		method: "get",
-		scope: "project"
-	});
-
-	console.log(project);
+	const project = useProject();
 
 	return <section>
 		<h3>Plan</h3>

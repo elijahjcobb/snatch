@@ -5,8 +5,9 @@ import { verifyBody } from "lib/api/type-check";
 import { supabase } from "#db";
 import { APIRawProject, APIResponseForm, convertToForm } from "lib/api/coding";
 import { assertArrayFilled } from "lib/assert-filled";
-import { fetchPlan, verifyPlanForFormActions } from "#lib/plan";
+import { fetchPlan } from "#lib/plan";
 import { APIPlanError } from "#lib/api-error";
+import { verifyPlanForFormActions } from "#lib/api/verify-plan";
 
 export default createEndpoint<APIResponseForm>({
 	POST: async ({ req, res }) => {

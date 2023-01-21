@@ -1,21 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
-import { fetcher, useFetch } from "lib/front/fetch";
+import { fetcher } from "lib/front/fetch";
 import { Button } from "#components/button";
 import { Field } from "#components/field";
 import { SkeletonContainer } from "#components/skeleton";
 import styles from "../index.module.css";
 import { IoPerson } from "react-icons/io5";
 import { APIResponseUser } from "#api/user";
+import { useUser } from "#lib/front/dashboard-context";
 
 export function SettingsUserName() {
 
 	const [loading, setLoading] = useState(false);
 	const [name, setName] = useState('');
-	const [user] = useFetch<APIResponseUser>({
-		path: "/user",
-		method: "get",
-		scope: "user"
-	});
+
+	const user = useUser();
 
 	useEffect(() => {
 		if (user) setName(user.name);

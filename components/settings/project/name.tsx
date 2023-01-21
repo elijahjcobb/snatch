@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { RxLetterCaseCapitalize } from "react-icons/rx";
 import { APIResponseProject } from "lib/api/coding";
-import { useDashboardContext } from "lib/front/dashboard-context";
-import { fetcher, useFetch } from "lib/front/fetch";
+import { useDashboardContext, useProject } from "lib/front/dashboard-context";
+import { fetcher } from "lib/front/fetch";
 import { Button } from "#components/button";
 import { Field } from "#components/field";
 import { SkeletonContainer } from "#components/skeleton";
@@ -13,11 +13,8 @@ export function SettingsProjectName() {
 	const context = useDashboardContext();
 	const [loading, setLoading] = useState(false);
 	const [projectName, setProjectName] = useState('');
-	const [project] = useFetch<APIResponseProject>({
-		path: "/project",
-		method: "get",
-		scope: "project"
-	});
+
+	const project = useProject();
 
 	useEffect(() => {
 		if (project) setProjectName(project.name);

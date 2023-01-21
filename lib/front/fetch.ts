@@ -14,6 +14,7 @@ export interface FetcherConfig {
   message?: string;
   scope?: TokenType;
   debug?: boolean;
+  silent?: boolean;
 }
 
 async function handleError(error: APIError): Promise<boolean> {
@@ -37,6 +38,7 @@ export function fetcher<T extends object>({
   message,
   scope = "project",
   debug = false,
+  silent,
 }: FetcherConfig): Promise<T> {
   const promise = new Promise<T>((resolve, reject) => {
     (async (): Promise<T> => {
@@ -72,14 +74,14 @@ export function fetcher<T extends object>({
         const error = new APIError(code, message);
         const wasHandled = await handleError(error);
         if (wasHandled) return undefined as unknown as T;
-        if (!hideToast) toast({ message, status: "error" });
+        if (!silent && !hideToast) toast({ message, status: "error" });
         throw error;
       }
     })()
       .then(resolve)
       .catch(reject);
   });
-  if (showLoadingToast) toast({ promise, message });
+  if (!silent && showLoadingToast) toast({ promise, message });
   return promise;
 }
 

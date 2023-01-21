@@ -6,7 +6,8 @@ import { supabase } from "#db";
 import { APIError } from "lib/api-error";
 import { APIResponseForm, convertToForm } from "lib/api/coding";
 import { assertArrayFilled } from "lib/assert-filled";
-import { verifyPlanForFormActions } from "#lib/plan";
+import { verifyPlanForFormActions } from "#lib/api/verify-plan";
+
 
 export default createEndpoint<APIResponseForm>({
 	DELETE: async ({ req, res }) => {
