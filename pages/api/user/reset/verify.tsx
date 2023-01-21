@@ -6,10 +6,12 @@ import { otpVerify } from "lib/api/otp";
 import { verifyBody } from "lib/api/type-check";
 import { supabase } from "#db";
 import { createPassword } from "lib/api/password";
+import { APIResponseUserSignIn } from "../sign-in";
+import { tokenSign } from "#lib/api/token";
 
-export default createEndpoint({
+export default createEndpoint<APIResponseUserSignIn>({
 	POST: async ({ req, res }) => {
-		const { email, code, password } = await verifyBody(req, T.object({
+		const { email, code, password } = verifyBody(req, T.object({
 			email: T.string(),
 			code: T.string(),
 			password: T.string()
@@ -25,6 +27,15 @@ export default createEndpoint({
 		const newPassword = await createPassword(password);
 		await supabase.from("user").update({ password: newPassword }).eq("id", user.id);
 		sendUserResetEmailPost(email);
-		res.json({});
+
+		const { data: projectData, error: projectError } = await supabase.from('member').select().eq('user_id', user.id).limit(1);
+		const project = projectData?.[0];
+		if (projectError || !project) throw new APIError(500, "Failed to fetch projects for user.", projectError);
+
+		res.json({
+			userToken: await tokenSign(user.id, 'user'),
+			projectId: project.project_id,
+			projectToken: await tokenSign(project.project_id, 'project'),
+		});
 	},
 });

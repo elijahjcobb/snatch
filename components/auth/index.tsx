@@ -27,7 +27,7 @@ function Feature({ title, subtitle }: { title: string, subtitle: string }) {
 export function AuthPage({
 	type: initialType
 }: {
-	type: "sign-up" | "sign-in" | 'code'
+	type: "sign-up" | "sign-in" | 'code' | 'reset' | 'reset-verify'
 }) {
 
 	const router = useRouter();
@@ -46,6 +46,11 @@ export function AuthPage({
 		});
 	}, []);
 
+	const handleResetClick = useCallback(() => {
+		setType('reset');
+		history.pushState({}, '', '/reset');
+	}, []);
+
 	const typeString = useMemo(() => {
 		switch (type) {
 			case 'code':
@@ -54,6 +59,10 @@ export function AuthPage({
 				return "Sign In";
 			case 'sign-up':
 				return "Sign Up";
+			case 'reset':
+				return "Reset";
+			case 'reset-verify':
+				return "Reset";
 		}
 	}, [type]);
 
@@ -65,6 +74,10 @@ export function AuthPage({
 				return "signIn()";
 			case 'sign-up':
 				return "signUp()";
+			case 'reset':
+				return "resetPassword()";
+			case 'reset-verify':
+				return "verifyPasswordReset()";
 		}
 	}, [type]);
 
@@ -80,6 +93,12 @@ export function AuthPage({
 		} else if (type === 'sign-in') {
 			body = { email, password }
 			url = "/sign-in"
+		} else if (type === 'reset') {
+			body = { email }
+			url = '/reset'
+		} else if (type === 'reset-verify') {
+			body = { email: localStorage.getItem('email'), password, code: otp }
+			url = '/reset/verify'
 		} else {
 			body = { code: otp }
 			url = "/verify"
@@ -92,6 +111,12 @@ export function AuthPage({
 			showLoadingToast: false
 		})
 			.then(({ userToken, projectId, projectToken }) => {
+				if (type === 'reset') {
+					localStorage.setItem('email', email);
+					router.push("/reset/verify");
+					return;
+				}
+				if (type === 'reset-verify') localStorage.removeItem('email');
 				if (userToken) setCookie30Day('user', userToken);
 				if ((!projectId || !projectToken) && type === 'code') {
 					toast({ status: "error", message: "Invalid code." })
@@ -125,7 +150,7 @@ export function AuthPage({
 				<ImSpinner className={clsx(styles.spinner, loading && styles.showSpinner)} />
 			</div>
 			<div className={styles.fields}>
-				{type !== 'code' ? <Field
+				{type !== 'code' && type !== 'reset-verify' ? <Field
 					placeholder="email"
 					value={email}
 					type='email'
@@ -135,7 +160,7 @@ export function AuthPage({
 					disabled={loading}
 					icon={IoMail}
 				/> : null}
-				{type !== 'code' ? <Field
+				{type !== 'code' && type !== 'reset' ? <Field
 					placeholder="password"
 					value={password}
 					type='password'
@@ -154,7 +179,7 @@ export function AuthPage({
 					disabled={loading}
 					icon={IoPerson}
 				/> : null}
-				{type === 'code' ? <Field
+				{type === 'code' || type === 'reset-verify' ? <Field
 					placeholder="Code"
 					value={otp}
 					type='number'
@@ -164,9 +189,14 @@ export function AuthPage({
 					onChange={setOtp}
 					icon={IoShieldCheckmarkSharp}
 				/> : null}
+				{type === 'sign-in' ? <Button
+					onClick={handleResetClick}
+					disabled={loading}
+					secondary
+					value={'Reset Password'} /> : null}
 			</div>
 			<div className={styles.buttons}>
-				{type !== "code" ? <Button
+				{type !== "code" && type !== 'reset-verify' ? <Button
 					onClick={handleOppositeClick}
 					disabled={loading}
 					value={type === 'sign-in' ? "Sign Up" : "Sign In"}

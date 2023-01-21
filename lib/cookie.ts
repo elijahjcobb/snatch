@@ -2,7 +2,7 @@ import { setCookie } from "cookies-next";
 import { getDate90DaysInFuture } from "./date";
 import { truncate } from "./front/truncate";
 
-export type CookieKey = "project" | "user" | "projectId";
+export type CookieKey = "project" | "user" | "projectId" | "email";
 
 export function setCookie30Day(key: CookieKey, value: string): void {
   console.info(`Setting cookie: {"${key}": "${truncate(value ?? "", 20)}"}`);
