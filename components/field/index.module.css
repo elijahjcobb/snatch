@@ -6,7 +6,6 @@
   background: var(--acc-1);
   overflow: hidden;
   border: solid 1px var(--acc-2);
-  flex-grow: 1;
   width: 100%;
 }
 
