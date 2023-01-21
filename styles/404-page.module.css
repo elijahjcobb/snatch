@@ -1,0 +1,15 @@
+.container {
+  min-height: calc(100vh - var(--header));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--sp-2);
+  font-size: 24px;
+}
+
+.title {
+  font-family: var(--font-grotesk);
+  font-weight: bold;
+  font-size: 128px;
+}
