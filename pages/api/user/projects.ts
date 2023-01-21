@@ -131,6 +131,7 @@ export default createEndpoint<APIResponseUserProjects>({
         project: convertToProject(project),
         token,
         date: new Date().toISOString(),
+        isOwner: true,
       },
     ]);
   },

@@ -103,6 +103,6 @@ export function useFetch<T extends object>(
         setError(undefined);
       })
       .catch(() => {});
-  }, []);
+  }, [config]);
   return [data, data === undefined && error === undefined, error];
 }
