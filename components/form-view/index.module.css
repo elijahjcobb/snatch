@@ -17,3 +17,9 @@
 .saveButton {
   flex-grow: 1;
 }
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp);
+}

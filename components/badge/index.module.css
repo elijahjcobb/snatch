@@ -1,0 +1,46 @@
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 18px;
+  padding: 0 var(--sp);
+  border-radius: var(--sp);
+  border: solid 1px var(--acc-2);
+  box-shadow: 0 0 4px var(--acc-3);
+}
+
+.badge span {
+  color: inherit;
+  font-size: 12px;
+  font-family: var(--font-mono);
+}
+
+.default,
+.hobby {
+  background: var(--acc-3);
+}
+
+.success {
+  background: var(--pri);
+  color: var(--bg);
+}
+
+.warning {
+  background: var(--orange);
+  color: var(--bg);
+}
+
+.error {
+  background: var(--red);
+  color: var(--bg);
+}
+
+.pro {
+  background: radial-gradient(var(--blue) 60%, var(--cyan));
+  color: var(--bg);
+}
+
+.business {
+  background: linear-gradient(to right, lightgreen, lime, yellow);
+  color: var(--fg);
+}

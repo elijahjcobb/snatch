@@ -10,6 +10,9 @@ import { setCookie30Day } from "lib/cookie";
 import { useFetch } from "lib/front/fetch";
 import styles from "#styles/projects.module.css";
 import { APIResponseUserProject, APIResponseUserProjects } from "#api/user/projects";
+import { PlanBadge } from "#components/badge";
+import { PlanName } from "#lib/plan";
+import { truncate } from "#lib/front/truncate";
 
 export default function ProjectsPage() {
 
@@ -63,6 +66,7 @@ export function ProjectsPickerRow({
 		value={data.project.name}
 		onClick={handleClick}
 		className={className}
+		plan={data.project.plan}
 	/>
 }
 
@@ -70,15 +74,20 @@ export function BaseProjectsPickerRow({
 	icon: Icon,
 	value,
 	onClick,
-	className
+	className,
+	plan
 }: {
 	icon: IconType,
 	value: string,
 	onClick?: () => void,
-	className?: string
+	className?: string,
+	plan?: PlanName
 }) {
 	return <button onClick={onClick} className={clsx(styles.row, className)}>
-		<span>{value}</span>
+		<div className={styles.left}>
+			<span>{truncate(value, 32)}</span>
+			{plan ? <PlanBadge type={plan} /> : null}
+		</div>
 		<Icon size={18} />
 	</button>
 }

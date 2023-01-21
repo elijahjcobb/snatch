@@ -9,6 +9,8 @@ import { useRouter } from "next/router";
 import clsx from "clsx";
 import { BaseProjectsPickerRow, ProjectsPickerRow } from "#pages/projects";
 import { useDashboardContext } from "lib/front/dashboard-context";
+import { PlanBadge } from "#components/badge";
+import { truncate } from "#lib/front/truncate";
 
 export function ProjectPicker() {
 
@@ -61,7 +63,7 @@ export function ProjectPicker() {
 			onClick={() => setShowOverlay(v => !v)}
 			className={styles.picker}>
 			{project ? <>
-				<span>{project.name}</span>
+				<span>{truncate(project.name, 22)}</span>
 				<IoChevronUpCircle className={clsx(styles.icon, showOverlay && styles.iconFlip)} />
 			</> : null}
 		</button>

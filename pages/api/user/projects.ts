@@ -1,6 +1,6 @@
 import { T } from "@elijahjcobb/typr";
 import { supabase } from "#db";
-import { APIError } from "lib/api-error";
+import { APIError, APIPlanError } from "lib/api-error";
 import {
   APIResponsePlanType,
   APIResponseProject,
@@ -63,6 +63,42 @@ export default createEndpoint<APIResponseUserProjects>({
     }
 
     const user = await verifyUser(req);
+
+    let { data: projects, error: projectsError } = await supabase
+      .from("member")
+      .select(
+        `
+          project_id,
+          user_id,
+          project (
+            plan,
+            name
+          )
+      `
+      )
+      .eq("user_id", user.id);
+
+    if (projectsError || !projects)
+      throw new APIError(
+        500,
+        "Could not fetch member associations.",
+        projectsError
+      );
+
+    let hobbyAccounts = [];
+    for (const project of projects) {
+      //@ts-expect-error
+      if (project.project.plan === "hobby")
+        //@ts-expect-error
+        hobbyAccounts.push(project.project.name);
+    }
+
+    if (hobbyAccounts.length >= 1) {
+      throw new APIError(
+        400,
+        `You can only have one hobby account. First upgrade "${hobbyAccounts[0]}".`
+      );
+    }
 
     let { data, error } = await supabase
       .from("project")

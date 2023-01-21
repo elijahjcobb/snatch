@@ -10,6 +10,10 @@ import { useRouter } from "next/router";
 import { HOST } from "lib/constants";
 import { Toggle } from "../toggle";
 import { IoPeople, IoPerson } from "react-icons/io5";
+import { useProject } from "#lib/front/dashboard-context";
+import { Plan, fetchPlan } from "#lib/plan";
+import { useEffect } from "react";
+import { Badge, BusinessBadge, PlanBadge, ProBadge } from "#components/badge";
 
 export function FormView({
 	form,
@@ -30,6 +34,13 @@ export function FormView({
 	const [notifyResponder, setNotifyResponder] = useState(form?.notifyResponder ?? false);
 	const [unbranded, setUnbranded] = useState(form?.unbranded ?? false);
 	const [loading, setLoading] = useState(false);
+	const [plan, setPlan] = useState<Plan | undefined>(undefined);
+	const project = useProject();
+
+	useEffect(() => {
+		if (!project) return;
+		setPlan(fetchPlan(project));
+	}, [project]);
 
 	const handleDelete = useCallback(() => {
 		if (!form?.id) return;
@@ -108,19 +119,25 @@ export function FormView({
 				placeholder={`firstName,lastName,email`} />
 		</section>
 		<section>
-			<h3>Destination</h3>
+			<div className={styles.title}>
+				<h3>Destination</h3>
+				<ProBadge />
+			</div>
 			<p>Where should your users be redirected to once they fill out your form?</p>
 			<Field
 				value={destination}
 				icon={IoLink}
 				onChange={setDestination}
-				disabled={loading}
+				disabled={loading || !plan?.customDestination}
 				label='destination'
 				mono
 				placeholder={`${HOST}/submission/success`} />
 		</section>
 		<section>
-			<h3>Unbranded Experience</h3>
+			<div className={styles.title}>
+				<h3>Unbranded Experience</h3>
+				<BusinessBadge />
+			</div>
 			<p>Send your users directly to your custom destination and skip the snatch submission page altogether.</p>
 			<div className={styles.toggles}>
 				<Toggle
@@ -128,24 +145,30 @@ export function FormView({
 					onChange={setUnbranded}
 					label='Unbranded Submission'
 					icon={IoPlanet}
-					disabled={loading}
+					disabled={loading || !plan?.unbrandedSubmission}
 				/>
 			</div>
 		</section>
 		<section>
-			<h3>Domains</h3>
+			<div className={styles.title}>
+				<h3>Domains</h3>
+				<BusinessBadge />
+			</div>
 			<p>Which domains can your forms be filled out on? Provide a comma separated list. <b>Note:</b> Leave empty to allow all domains.</p>
 			<Field
 				value={domains}
 				icon={IoEarth}
-				disabled={loading}
+				disabled={loading || !plan?.domainVerification}
 				onChange={setDomains}
 				mono
 				placeholder='my-site.com,my-other-site.com'
 				label="domains" />
 		</section>
 		<section>
-			<h3>Email Notifications</h3>
+			<div className={styles.title}>
+				<h3>Email Notifications</h3>
+				<BusinessBadge />
+			</div>
 			<p>Who should be notified when a responder provides a form entry?</p>
 			<div className={styles.toggles}>
 				<Toggle
@@ -153,14 +176,14 @@ export function FormView({
 					onChange={setNotifyAdmin}
 					label='Team'
 					icon={IoPeople}
-					disabled={loading}
+					disabled={loading || !plan?.adminNotifications}
 				/>
 				<Toggle
 					value={notifyResponder}
 					onChange={setNotifyResponder}
 					label='Responder'
 					icon={IoPerson}
-					disabled={loading}
+					disabled={loading || !plan?.responderNotifications}
 				/>
 			</div>
 		</section>
