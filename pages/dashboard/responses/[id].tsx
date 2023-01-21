@@ -1,6 +1,6 @@
 import { DashboardPage, DashboardPageLoader } from "#components/dashboard-page";
-import { useFetch } from "#lib/front/fetch";
-import type { APIResponseFormEntries } from "#lib/api/coding";
+import { useFetch } from "lib/front/fetch";
+import type { APIResponseFormEntries } from "lib/api/coding";
 import styles from "#styles/responses-view.module.css";
 import { Button } from "#components/button";
 import { EntriesTable } from "#components/entries-table";
@@ -24,6 +24,7 @@ export default function Page() {
 				<Button
 					secondary
 					value="Export"
+					newTab
 					href={`/api/form/${data.form.id}/export`}
 				/>
 				<Button

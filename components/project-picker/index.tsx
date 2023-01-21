@@ -1,14 +1,14 @@
 import { getCookie } from "cookies-next";
 import { useEffect, useState } from "react";
-import { APIResponseProject } from "#lib/api/coding";
-import { useFetch } from "#lib/front/fetch"
+import { APIResponseProject } from "lib/api/coding";
+import { useFetch } from "lib/front/fetch"
 import { APIResponseUserProjects } from "#api/user/projects"
 import { IoChevronUpCircle, IoAdd } from "react-icons/io5";
 import styles from "./index.module.css";
 import { useRouter } from "next/router";
 import clsx from "clsx";
 import { BaseProjectsPickerRow, ProjectsPickerRow } from "#pages/projects";
-import { useDashboardContext } from "#lib/front/dashboard-context";
+import { useDashboardContext } from "lib/front/dashboard-context";
 
 export function ProjectPicker() {
 

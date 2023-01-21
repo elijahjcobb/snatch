@@ -1,13 +1,17 @@
 import { supabase } from "#db";
-import { APIError } from "#lib/api-error";
-import { createEndpoint } from "#lib/api/create-endpoint";
-import { verifyProject } from "#lib/api/token";
+import { fetchPlan } from "#lib/plan";
+import { APIError, APIPlanError } from "lib/api-error";
+import { createEndpoint } from "lib/api/create-endpoint";
+import { verifyProject } from "lib/api/token";
 
 export default createEndpoint({
   GET: async ({ req, res }) => {
     const formId = req.query.id;
     if (typeof formId !== "string") throw new APIError(400, "Invalid form ID.");
     const project = await verifyProject(req);
+    const plan = fetchPlan(project);
+    if (!plan.exportResponses)
+      throw new APIPlanError("you to export responses");
     const { data: form } = await supabase
       .from("form")
       .select()

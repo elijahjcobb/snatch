@@ -1,8 +1,8 @@
-import { createEndpoint } from "#lib/api/create-endpoint";
-import { verifyProject } from "#lib/api/token";
+import { createEndpoint } from "lib/api/create-endpoint";
+import { verifyProject } from "lib/api/token";
 import { supabase } from "#db";
-import { APIError } from "#lib/api-error";
-import { APIResponseForm, convertToForm } from "#lib/api/coding";
+import { APIError } from "lib/api-error";
+import { APIResponseForm, convertToForm } from "lib/api/coding";
 
 export type APIResponseForms = APIResponseForm[];
 

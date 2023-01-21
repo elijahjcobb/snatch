@@ -1,9 +1,9 @@
 import { T } from "@elijahjcobb/typr";
-import { APIError } from "#lib/api-error";
-import { createEndpoint } from "#lib/api/create-endpoint";
-import { sendUserResetEmail } from "#lib/api/email";
-import { otpGenerate } from "#lib/api/otp";
-import { verifyBody } from "#lib/api/type-check";
+import { APIError } from "lib/api-error";
+import { createEndpoint } from "lib/api/create-endpoint";
+import { sendUserResetEmail } from "lib/api/email";
+import { otpGenerate } from "lib/api/otp";
+import { verifyBody } from "lib/api/type-check";
 import { supabase } from "#db";
 
 export interface APIResponseUser {

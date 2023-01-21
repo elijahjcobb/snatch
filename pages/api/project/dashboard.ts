@@ -1,7 +1,7 @@
 import { supabase } from "#db";
-import { APIError } from "#lib/api-error";
-import { createEndpoint } from "#lib/api/create-endpoint";
-import { verifyProject } from "#lib/api/token";
+import { APIError } from "lib/api-error";
+import { createEndpoint } from "lib/api/create-endpoint";
+import { verifyProject } from "lib/api/token";
 
 export interface APIResponseDashboard {
   entries: number;

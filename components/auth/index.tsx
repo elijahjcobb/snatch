@@ -8,11 +8,11 @@ import { Field } from "../field";
 import { ImSpinner } from "react-icons/im";
 import { IoMail, IoLockClosed, IoPerson, IoShieldCheckmarkSharp } from 'react-icons/io5';
 import clsx from "clsx";
-import { fetcher } from "#lib/front/fetch";
+import { fetcher } from "lib/front/fetch";
 import { APIResponseUserSignIn } from "#pages/api/user/sign-in";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { setCookie30Day } from "#lib/cookie";
+import { setCookie30Day } from "lib/cookie";
 
 function Feature({ title, subtitle }: { title: string, subtitle: string }) {
 	return <div className={styles.feature}>

@@ -1,12 +1,12 @@
-import { createEndpoint } from "#lib/api/create-endpoint";
-import { verifyProject } from "#lib/api/token";
+import { createEndpoint } from "lib/api/create-endpoint";
+import { verifyProject } from "lib/api/token";
 import { supabase } from "#db";
-import { APIError } from "#lib/api-error";
+import { APIError } from "lib/api-error";
 import {
   APIResponseFormEntries,
   convertToForm,
   convertToResponse,
-} from "#lib/api/coding";
+} from "lib/api/coding";
 
 export default createEndpoint<APIResponseFormEntries>({
   GET: async ({ req, res }) => {

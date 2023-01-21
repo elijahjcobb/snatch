@@ -6,8 +6,8 @@ import { BsChevronRight } from "react-icons/bs";
 import { Button } from "#components/button";
 import { DashboardPageLoader } from "#components/dashboard-page";
 import { MarketingPage } from "#components/marketing-page";
-import { setCookie30Day } from "#lib/cookie";
-import { useFetch } from "#lib/front/fetch";
+import { setCookie30Day } from "lib/cookie";
+import { useFetch } from "lib/front/fetch";
 import styles from "#styles/projects.module.css";
 import { APIResponseUserProject, APIResponseUserProjects } from "#api/user/projects";
 

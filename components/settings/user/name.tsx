@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { fetcher, useFetch } from "#lib/front/fetch";
+import { fetcher, useFetch } from "lib/front/fetch";
 import { Button } from "#components/button";
 import { Field } from "#components/field";
 import { SkeletonContainer } from "#components/skeleton";

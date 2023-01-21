@@ -1,10 +1,10 @@
 import { DashboardPage, DashboardPageLoader } from "#components/dashboard-page";
-import { useFetch } from "#lib/front/fetch";
-import type { APIResponseForm } from "#lib/api/coding";
+import { useFetch } from "lib/front/fetch";
+import type { APIResponseForm } from "lib/api/coding";
 import { FormView } from "#components/form-view";
 import { useEffect, useMemo, useState } from "react";
 import styles from "#styles/form-view.module.css";
-import { uniqueFormURL } from "#lib/front/form-url";
+import { uniqueFormURL } from "lib/front/form-url";
 import { Copier } from "#components/copier";
 import { Button } from "#components/button";
 

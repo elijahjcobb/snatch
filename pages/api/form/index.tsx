@@ -1,17 +1,17 @@
 import { T } from "@elijahjcobb/typr";
-import { createEndpoint } from "#lib/api/create-endpoint";
-import { verifyProject } from "#lib/api/token";
-import { verifyBody } from "#lib/api/type-check";
+import { createEndpoint } from "lib/api/create-endpoint";
+import { verifyProject } from "lib/api/token";
+import { verifyBody } from "lib/api/type-check";
 import { supabase } from "#db";
-import { APIResponseForm, convertToForm } from "#lib/api/coding";
-import { assertArrayFilled } from "#lib/assert-filled";
+import { APIRawProject, APIResponseForm, convertToForm } from "lib/api/coding";
+import { assertArrayFilled } from "lib/assert-filled";
+import { fetchPlan, verifyPlanForFormActions } from "#lib/plan";
+import { APIPlanError } from "#lib/api-error";
 
 export default createEndpoint<APIResponseForm>({
 	POST: async ({ req, res }) => {
 
-		const project = await verifyProject(req);
-
-		const { name, notifyAdmin, notifyResponder, domains, keys, destination } = verifyBody(
+		const body = verifyBody(
 			req,
 			T.object({
 				name: T.string(),
@@ -22,6 +22,11 @@ export default createEndpoint<APIResponseForm>({
 				destination: T.optional(T.regex.url()),
 			})
 		);
+		const { name, notifyAdmin, notifyResponder, domains, keys, destination } = body;
+
+		const project = await verifyProject(req);
+
+		await verifyPlanForFormActions(project, body);
 
 		const { data, error } = await supabase
 			.from('form')

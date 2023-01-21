@@ -1,13 +1,13 @@
 import { useCallback, useState } from "react";
-import { APIResponseForm } from "#lib/api/coding";
+import { APIResponseForm } from "lib/api/coding";
 import { Field } from "../field";
 import styles from "./index.module.css";
 import { IoPencil, IoLink, IoEarth, IoKey } from "react-icons/io5";
 import { Button } from "../button";
 import { IoAdd, IoTrash, IoSave } from "react-icons/io5";
-import { fetcher } from "#lib/front/fetch";
+import { fetcher } from "lib/front/fetch";
 import { useRouter } from "next/router";
-import { HOST } from "#lib/constants";
+import { HOST } from "lib/constants";
 import { Toggle } from "../toggle";
 import { IoPeople, IoPerson } from "react-icons/io5";
 
@@ -44,17 +44,34 @@ export function FormView({
 
 	const handleSubmit = useCallback(() => {
 		setLoading(true);
+
+		const body = {
+			notifyAdmin,
+			notifyResponder
+		};
+
+		function addIfLengthValid(key: string, value: { length: number }): void {
+			// @ts-expect-error
+			if (value.length > 0) body[key] = value;
+		}
+
+		addIfLengthValid('name', name.trim());
+		addIfLengthValid('destination', destination.trim());
+
+		let formattedDomains = domains.split(",");
+		formattedDomains.forEach(v => v.trim());
+		if (formattedDomains[0].length === 0) formattedDomains = [];
+		addIfLengthValid('domains', formattedDomains);
+
+		let formattedKeys = keys.split(",");
+		formattedKeys.forEach(v => v.trim());
+		if (formattedKeys[0].length === 0) formattedKeys = [];
+		addIfLengthValid('keys', formattedKeys);
+
 		fetcher<APIResponseForm>({
 			path: `/form/${form ? form.id : ""}`,
 			method: form ? 'put' : "post",
-			body: {
-				name: name.trim(),
-				destination: destination.trim().length > 0 ? destination.trim() : undefined,
-				domains: domains.split(","),
-				keys: keys.split(","),
-				notifyAdmin,
-				notifyResponder,
-			},
+			body,
 			message: 'Saving form...'
 		}).then((res) => {
 			if (onFormChange) {

@@ -2,7 +2,7 @@ import { MouseEvent, useCallback, useMemo } from "react";
 import { toast } from "../toast";
 import styles from "./index.module.css";
 import { IoCopy } from "react-icons/io5";
-import { truncate } from "#lib/front/truncate";
+import { truncate } from "lib/front/truncate";
 import clsx from "clsx";
 import { IconType } from "react-icons";
 

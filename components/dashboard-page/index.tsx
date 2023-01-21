@@ -11,7 +11,7 @@ import { Button } from "../button";
 import { deleteCookie } from "cookies-next";
 import { ImSpinner } from "react-icons/im";
 import { ProjectPicker } from "../project-picker";
-import { DashboardProvider } from "#lib/front/dashboard-context";
+import { DashboardProvider } from "lib/front/dashboard-context";
 
 function DashboardLink({
 	href,

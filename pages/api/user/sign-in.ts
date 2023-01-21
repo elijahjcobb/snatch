@@ -1,11 +1,11 @@
 import { T } from "@elijahjcobb/typr";
-import { APIError } from "#lib/api-error";
-import { createEndpoint } from "#lib/api/create-endpoint";
-import { verifyPassword } from "#lib/api/password";
-import { tokenSign } from "#lib/api/token";
-import { verifyBody } from "#lib/api/type-check";
+import { APIError } from "lib/api-error";
+import { createEndpoint } from "lib/api/create-endpoint";
+import { verifyPassword } from "lib/api/password";
+import { tokenSign } from "lib/api/token";
+import { verifyBody } from "lib/api/type-check";
 import { supabase } from "#db";
-import { setCookie30Day } from "#lib/cookie";
+import { setCookie30Day } from "lib/cookie";
 
 export interface APIResponseUserSignIn {
   userToken: string;

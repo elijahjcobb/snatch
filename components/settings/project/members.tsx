@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { RxLetterCaseCapitalize } from "react-icons/rx";
-import { APIResponseProject } from "#lib/api/coding";
-import { useDashboardContext } from "#lib/front/dashboard-context";
-import { fetcher, useFetch } from "#lib/front/fetch";
+import { APIResponseProject } from "lib/api/coding";
+import { useDashboardContext } from "lib/front/dashboard-context";
+import { fetcher, useFetch } from "lib/front/fetch";
 import { Button } from "#components/button";
 import { Field } from "#components/field";
 import { Skeleton, SkeletonContainer } from "#components/skeleton";

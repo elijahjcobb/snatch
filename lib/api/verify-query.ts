@@ -1,5 +1,5 @@
 import type { NextApiRequest } from "next";
-import { APIError } from "#lib/api-error";
+import { APIError } from "lib/api-error";
 
 export function verifyQuery(req: NextApiRequest, key = "id"): string {
   const value = req.query[key];

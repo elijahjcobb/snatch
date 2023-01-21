@@ -1,7 +1,7 @@
-import { createEndpoint } from "#lib/api/create-endpoint";
+import { createEndpoint } from "lib/api/create-endpoint";
 import { supabase } from "#db";
-import { HOST } from "#lib/constants";
-import { sendFormSubmittedTeam, sendFormSubmittedUser } from "#lib/api/email";
+import { HOST } from "lib/constants";
+import { sendFormSubmittedTeam, sendFormSubmittedUser } from "lib/api/email";
 
 const FORM_SUBMISSION_ERROR_URL = `${HOST}/submission/error`;
 const FORM_SUBMISSION_SUCCESS_URL = `${HOST}/submission/success`;

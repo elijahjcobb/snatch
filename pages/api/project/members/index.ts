@@ -1,10 +1,11 @@
 import { supabase } from "#db";
-import { APIError } from "#lib/api-error";
-import { createEndpoint } from "#lib/api/create-endpoint";
-import { sendMemberInvited } from "#lib/api/email";
-import { verifyProject } from "#lib/api/token";
-import { verifyBody } from "#lib/api/type-check";
+import { APIError, APIPlanError } from "lib/api-error";
+import { createEndpoint } from "lib/api/create-endpoint";
+import { sendMemberInvited } from "lib/api/email";
+import { verifyProject } from "lib/api/token";
+import { verifyBody } from "lib/api/type-check";
 import { T } from "@elijahjcobb/typr";
+import { fetchPlan } from "#lib/plan";
 
 export interface APIResponseProjectMembers {
   members: { id: string; name: string }[];
@@ -53,6 +54,17 @@ export default createEndpoint<APIResponseProjectMembers>({
     }
 
     const project = await verifyProject(req);
+
+    const plan = fetchPlan(project);
+
+    if (plan.memberCount > 0) {
+      const { count } = await supabase
+        .from("member")
+        .select("*", { count: "exact" })
+        .eq("project_id", project.id);
+      if ((count ?? 0) >= plan.memberCount)
+        throw new APIPlanError("inviting members to your team");
+    }
 
     const { error: insertError } = await supabase.from("member").insert({
       user_id: user.id,

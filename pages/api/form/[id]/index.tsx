@@ -1,11 +1,12 @@
 import { T } from "@elijahjcobb/typr";
-import { createEndpoint } from "#lib/api/create-endpoint";
-import { verifyProject } from "#lib/api/token";
-import { verifyBody } from "#lib/api/type-check";
+import { createEndpoint } from "lib/api/create-endpoint";
+import { verifyProject } from "lib/api/token";
+import { verifyBody } from "lib/api/type-check";
 import { supabase } from "#db";
-import { APIError } from "#lib/api-error";
-import { APIResponseForm, convertToForm } from "#lib/api/coding";
-import { assertArrayFilled } from "#lib/assert-filled";
+import { APIError } from "lib/api-error";
+import { APIResponseForm, convertToForm } from "lib/api/coding";
+import { assertArrayFilled } from "lib/assert-filled";
+import { verifyPlanForFormActions } from "#lib/plan";
 
 export default createEndpoint<APIResponseForm>({
 	DELETE: async ({ req, res }) => {
@@ -70,6 +71,9 @@ export default createEndpoint<APIResponseForm>({
 		);
 
 		const project = await verifyProject(req);
+
+		console.log(body);
+		await verifyPlanForFormActions(project, body, false);
 
 		const { data, error } = await supabase
 			.from("form")

@@ -1,14 +1,14 @@
 import { T } from "@elijahjcobb/typr";
 import { supabase } from "#db";
-import { APIError } from "#lib/api-error";
+import { APIError } from "lib/api-error";
 import {
   APIResponsePlanType,
   APIResponseProject,
   convertToProject,
-} from "#lib/api/coding";
-import { createEndpoint } from "#lib/api/create-endpoint";
-import { verifyUser, tokenSign } from "#lib/api/token";
-import { verifyBody } from "#lib/api/type-check";
+} from "lib/api/coding";
+import { createEndpoint } from "lib/api/create-endpoint";
+import { verifyUser, tokenSign } from "lib/api/token";
+import { verifyBody } from "lib/api/type-check";
 
 export type APIResponseUserProject = {
   project: APIResponseProject;

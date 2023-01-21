@@ -4,8 +4,8 @@ import { useCallback, useMemo } from "react";
 import { Copier } from "../copier";
 import { IoMail, IoCall } from "react-icons/io5";
 import { APIResponseContact } from "#api/contacts";
-import { formatRelativeDate } from "#lib/date-formatter";
-import { truncate } from "#lib/front/truncate";
+import { formatRelativeDate } from "lib/date-formatter";
+import { truncate } from "lib/front/truncate";
 
 export function ContactRow({
 	contact,

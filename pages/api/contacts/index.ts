@@ -1,7 +1,8 @@
 import { supabase } from "#db";
-import { APIError } from "#lib/api-error";
-import { createEndpoint } from "#lib/api/create-endpoint";
-import { verifyProject } from "#lib/api/token";
+import { fetchPlan } from "#lib/plan";
+import { APIError, APIPlanError } from "lib/api-error";
+import { createEndpoint } from "lib/api/create-endpoint";
+import { verifyProject } from "lib/api/token";
 
 export interface APIResponseContact {
   firstName: string | null;
@@ -17,6 +18,9 @@ export type APIResponseContacts = APIResponseContact[];
 export default createEndpoint<APIResponseContacts>({
   GET: async ({ req, res }) => {
     const project = await verifyProject(req);
+
+    const plan = fetchPlan(project);
+    if (!plan.contacts) throw new APIPlanError("viewing contacts");
 
     const { data, error } = await supabase
       .from("contacts")
