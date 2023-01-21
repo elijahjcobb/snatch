@@ -1,6 +1,7 @@
 import { ChangeEvent, HTMLInputTypeAttribute, KeyboardEvent, useCallback, useRef } from "react";
 import { IconType } from "react-icons/lib";
 import styles from "./index.module.css";
+import clsx from "clsx";
 
 type FieldAutocomplete = 'off' | 'on' | 'name' | 'honorific-prefix' | 'given-name' | 'additional-name' | 'family-name' | 'nickname' | 'email' | 'username' | 'new-password' | 'current-password' | 'one-time-code' | 'organization-title' | 'organization' | 'tel' | 'url';
 
@@ -15,7 +16,8 @@ export function Field({
 	disabled,
 	showLabel = false,
 	mono = false,
-	label = placeholder
+	label = placeholder,
+	className
 }: {
 	value: string;
 	onChange: (value: string) => void;
@@ -28,6 +30,7 @@ export function Field({
 	showLabel?: boolean;
 	label?: string;
 	mono?: boolean;
+	className?: string;
 }) {
 
 	const field = useRef<HTMLInputElement>(null);
@@ -47,7 +50,7 @@ export function Field({
 		field.current?.focus();
 	}, [disabled]);
 
-	return <div onClick={handleClick} className={styles.container}>
+	return <div onClick={handleClick} className={clsx(styles.container, className)}>
 		{Icon || showLabel ? <div className={styles.iconContainer}>
 			{Icon ? <Icon className={styles.icon} /> : null}
 			{showLabel ? <span className={styles.label}>{label}</span> : null}

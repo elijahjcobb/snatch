@@ -79,3 +79,11 @@ export function sendFormSubmittedUser(email: string, form: APIRawForm) {
     content: `Hello!\n\nYour form entry was submitted!\n\n- The snatch team`,
   });
 }
+
+export function sendMemberInvited(email: string, projectName: string) {
+  sendEmail({
+    to: email,
+    subject: `Join '${projectName}' on snatch.fyi!`,
+    content: `Hello!\n\nYour were just invited to join '${projectName}' on snatch.fyi! Log in and change your team in the bottom left of your screen.\n\n- The snatch team`,
+  });
+}

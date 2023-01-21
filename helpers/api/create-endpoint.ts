@@ -19,6 +19,7 @@ export function createEndpoint<T extends object>(
     } catch (e) {
       console.error(e);
       if (e instanceof APIError) {
+        if (e.error) console.error(e.error);
         return res.status(e.code).json({ error: e.message });
       }
       res.status(500).json({ error: "Internal server error." });

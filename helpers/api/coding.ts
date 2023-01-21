@@ -86,12 +86,15 @@ export interface APIRawProject {
   name: string;
   created_at: string;
   id: string;
+  plan: string;
 }
 
+export type APIResponsePlanType = "hobby" | "pro" | "business";
 export interface APIResponseProject {
   name: string;
   createdAt: string;
   id: string;
+  plan: APIResponsePlanType;
 }
 
 export function convertToProject(raw: APIRawProject): APIResponseProject {
@@ -99,5 +102,6 @@ export function convertToProject(raw: APIRawProject): APIResponseProject {
     name: raw.name,
     createdAt: raw.created_at,
     id: raw.id,
+    plan: raw.plan as APIResponsePlanType,
   };
 }

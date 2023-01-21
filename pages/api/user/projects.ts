@@ -1,7 +1,11 @@
 import { T } from "@elijahjcobb/typr";
 import { supabase } from "#db";
 import { APIError } from "#lib/api-error";
-import { APIResponseProject, convertToProject } from "#lib/api/coding";
+import {
+  APIResponsePlanType,
+  APIResponseProject,
+  convertToProject,
+} from "#lib/api/coding";
 import { createEndpoint } from "#lib/api/create-endpoint";
 import { verifyUser, tokenSign } from "#lib/api/token";
 import { verifyBody } from "#lib/api/type-check";
@@ -10,6 +14,7 @@ export type APIResponseUserProject = {
   project: APIResponseProject;
   token: string;
   date: string;
+  isOwner: boolean;
 };
 
 export type APIResponseUserProjects = APIResponseUserProject[];
@@ -36,7 +41,9 @@ export default createEndpoint<APIResponseUserProjects>({
           name: raw.name!,
           createdAt: raw.project_created_at!,
           id: raw.project_id!,
+          plan: raw.plan! as APIResponsePlanType,
         },
+        isOwner: raw.is_owner ?? false,
       });
     }
 
@@ -72,6 +79,7 @@ export default createEndpoint<APIResponseUserProjects>({
       await supabase.from("member").insert({
         project_id: project.id,
         user_id: user.id,
+        is_owner: true,
       })
     ).error;
 

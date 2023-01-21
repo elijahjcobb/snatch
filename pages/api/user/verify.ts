@@ -49,6 +49,7 @@ export default createEndpoint<APIResponseUserVerify>({
     const { error: memberError } = await supabase.from("member").insert({
       project_id: project.id,
       user_id: user.id,
+      is_owner: true,
     });
 
     if (memberError) {

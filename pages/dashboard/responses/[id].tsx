@@ -24,6 +24,7 @@ export default function Page() {
 				<Button
 					secondary
 					value="Export"
+					href={`/api/form/${data.form.id}/export`}
 				/>
 				<Button
 					value="View Form"
