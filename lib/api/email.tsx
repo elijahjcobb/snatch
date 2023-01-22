@@ -1,6 +1,14 @@
 import formData from "form-data";
 import Mailgun from "mailgun.js";
 import type { APIRawForm } from "./coding";
+import { render } from "@react-email/render";
+import EmailSignUp from "#emails/sign-up-code";
+import EmailVerified from "#emails/email-verified";
+import EmailPasswordReset from "#emails/password-reset";
+import EmailPasswordResetComplete from "#emails/password-reset-complete";
+import EmailFormSubmittedAdmin from "#emails/form-admin";
+import EmailFormSubmittedUser from "#emails/form-user";
+import EmailProjectInvitation from "#emails/project-invitation";
 
 const MAILGUN_API_KEY = process.env.MAILGUN_API_KEY;
 if (!MAILGUN_API_KEY) throw new Error("No mailgun key in env.");
@@ -24,7 +32,7 @@ export function sendEmail({
       from: "Snatch <noreply@mail.snatch.fyi>",
       to,
       subject,
-      text: content,
+      html: content,
     })
     .catch((err) => {
       console.error(err);
@@ -32,11 +40,11 @@ export function sendEmail({
     });
 }
 
-export function sendUserSignUpEmail(email: string, otp: string) {
+export function sendUserSignUpEmail(email: string, name: string, otp: string) {
   sendEmail({
     to: email,
     subject: "Welcome to snatch.fyi!",
-    content: `Welcome to snatch!\n\nYour one time code is:\n${otp}\n\nThanks,\nThe snatch team`,
+    content: render(<EmailSignUp name={name} otp={otp} />),
   });
 }
 
@@ -44,7 +52,7 @@ export function sendUserPostVerifyEmail(email: string) {
   sendEmail({
     to: email,
     subject: "Thank you for verifying!",
-    content: `Hello!\n\nYour email has been verified on snatch.fyi!\n\n- The snatch team`,
+    content: render(<EmailVerified />),
   });
 }
 
@@ -52,7 +60,7 @@ export function sendUserResetEmail(email: string, otp: string) {
   sendEmail({
     to: email,
     subject: "Snatch Password Reset Code",
-    content: `Hello!\n\nYour password reset code is:\n${otp}\n\nThanks,\nThe snatch team`,
+    content: render(<EmailPasswordReset otp={otp} />),
   });
 }
 
@@ -60,7 +68,7 @@ export function sendUserResetEmailPost(email: string) {
   sendEmail({
     to: email,
     subject: "Snatch Password Reset",
-    content: `Hello!\n\nYour password has been reset on snatch.fyi!\n\n- The snatch team`,
+    content: render(<EmailPasswordResetComplete />),
   });
 }
 
@@ -68,15 +76,15 @@ export function sendFormSubmittedTeam(emails: string[], form: APIRawForm) {
   sendEmail({
     to: emails,
     subject: `Your form '${form.name}' has a new response.`,
-    content: `Hello!\n\nYour form has a new response. Check it out on snatch!\n\nhttps://snatch.fyi/dashboard/responses/${form.id}\n\n- The snatch team`,
+    content: render(<EmailFormSubmittedAdmin url={`https://snatch.fyi/dashboard/responses/${form.id}`} name={form.name} />),
   });
 }
 
-export function sendFormSubmittedUser(email: string, form: APIRawForm) {
+export function sendFormSubmittedUser(email: string) {
   sendEmail({
     to: email,
     subject: "Form Submitted",
-    content: `Hello!\n\nYour form entry was submitted!\n\n- The snatch team`,
+    content: render(<EmailFormSubmittedUser />),
   });
 }
 
@@ -84,6 +92,6 @@ export function sendMemberInvited(email: string, projectName: string) {
   sendEmail({
     to: email,
     subject: `Join '${projectName}' on snatch.fyi!`,
-    content: `Hello!\n\nYour were just invited to join '${projectName}' on snatch.fyi! Log in and change your team in the bottom left of your screen.\n\n- The snatch team`,
+    content: render(<EmailProjectInvitation projectName={projectName = ""} />),
   });
 }

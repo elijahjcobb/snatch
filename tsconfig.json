@@ -27,7 +27,9 @@
       "#api": ["pages/api"],
       "#api/*": ["pages/api/*"],
       "#pages": ["pages"],
-      "#pages/*": ["pages/*"]
+      "#pages/*": ["pages/*"],
+      "#emails": ["emails"],
+      "#emails/*": ["emails/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

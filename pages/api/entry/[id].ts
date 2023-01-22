@@ -106,7 +106,7 @@ export default createEndpoint({
       res.redirect(FORM_SUBMISSION_SUCCESS_URL);
     }
 
-    if (form.notify_responder && email) sendFormSubmittedUser(email, form);
+    if (form.notify_responder && email) sendFormSubmittedUser(email);
     if (form.notify_admin) {
       const { data: owners, error: ownersError } = await supabase
         .from("member")
