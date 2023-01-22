@@ -6,8 +6,8 @@ import { EmailTemplate } from './template';
 
 export function EmailPasswordResetComplete() {
 	return <EmailTemplate
-		preview={`Email now verified.`}
-		title={`Email Verified!`}>
+		preview={`Password reset complete.`}
+		title={`Password reset complete.`}>
 		<Text style={p}>Your password was just successfully reset on <Link href='https://snatch.fyi'>snatch.fyi</Link>.</Text>
 	</EmailTemplate>
 }
